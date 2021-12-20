@@ -83,6 +83,30 @@ func (c *Client) InjectionOperation(input InjectionOperationInput) (*resty.Respo
 	return resp, opstring, nil
 }
 
+func (c *Client) SimulationOperation(input InjectionOperationInput) (*resty.Response, string, error) {
+	err := validator.New().Struct(input)
+	if err != nil {
+		return nil, "", errors.Wrap(err, "failed to simulate operation: invalid input")
+	}
+
+	v, err := json.Marshal(input.Operation)
+	if err != nil {
+		return nil, "", errors.Wrap(err, "failed to simulate operation")
+	}
+	resp, err := c.post("/chains/main/blocks/head/helpers/scripts/simulate_operation", v, input.contructRPCOptions()...)
+	if err != nil {
+		return resp, "", errors.Wrap(err, "failed to simulate operation")
+	}
+
+	var opstring string
+	err = json.Unmarshal(resp.Body(), &opstring)
+	if err != nil {
+		return resp, "", errors.Wrap(err, "failed to simulate operation: failed to parse json")
+	}
+
+	return resp, opstring, nil
+}
+
 /*
 InjectionBlockInput is the input for the InjectionBlock function.
 

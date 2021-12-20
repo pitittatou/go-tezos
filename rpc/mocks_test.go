@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/goat-systems/go-tezos/v4/rpc"
+	"github.com/pitittatou/go-tezos/v5/rpc"
 	"github.com/stretchr/testify/assert"
 )
 

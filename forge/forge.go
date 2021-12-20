@@ -14,8 +14,8 @@ import (
 
 	"github.com/btcsuite/btcutil/base58"
 	validator "github.com/go-playground/validator/v10"
-	"github.com/goat-systems/go-tezos/v4/internal/crypto"
-	"github.com/goat-systems/go-tezos/v4/rpc"
+	"github.com/pitittatou/go-tezos/v5/internal/crypto"
+	"github.com/pitittatou/go-tezos/v5/rpc"
 	"github.com/pkg/errors"
 	"github.com/valyala/fastjson"
 	"golang.org/x/crypto/blake2b"

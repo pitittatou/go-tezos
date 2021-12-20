@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/goat-systems/go-tezos/v4/internal/testutils"
-	"github.com/goat-systems/go-tezos/v4/rpc"
+	"github.com/pitittatou/go-tezos/v5/internal/testutils"
+	"github.com/pitittatou/go-tezos/v5/rpc"
 	"github.com/stretchr/testify/assert"
 )
 
