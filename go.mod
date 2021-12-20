@@ -1,4 +1,4 @@
-module github.com/pitittatou/go-tezos/v6
+module github.com/pitittatou/go-tezos/v5
 
 go 1.14
 
