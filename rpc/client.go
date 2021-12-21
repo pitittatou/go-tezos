@@ -102,7 +102,7 @@ func (c *Client) SetConstants(constants Constants) {
 	c.networkConstants = &constants
 }
 
-func (c *Client) post(path string, body interface{}, opts ...rpcOptions) (*resty.Response, error) {
+func (c *Client) Post(path string, body interface{}, opts ...rpcOptions) (*resty.Response, error) {
 	resp, err := c.client.R().
 		SetQueryParams(queryParams(opts...)).
 		SetHeader("Content-Type", "application/json").
@@ -118,7 +118,7 @@ func (c *Client) post(path string, body interface{}, opts ...rpcOptions) (*resty
 	return resp, err
 }
 
-func (c *Client) get(path string, opts ...rpcOptions) (*resty.Response, error) {
+func (c *Client) Get(path string, opts ...rpcOptions) (*resty.Response, error) {
 	resp, err := c.client.R().SetQueryParams(queryParams(opts...)).Get(fmt.Sprintf("%s%s", c.host, path))
 	if err != nil {
 		return resp, err

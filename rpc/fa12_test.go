@@ -39,7 +39,7 @@ func Test_GetFA12Balance(t *testing.T) {
 			},
 		},
 		{
-			"handles failure to get cycle",
+			"handles failure to Get cycle",
 			input{
 				gtGoldenHTTPMock(mockCycleFailed(blankHandler)),
 				rpc.GetFA12BalanceInput{
@@ -52,12 +52,12 @@ func Test_GetFA12Balance(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get cycle",
+				"failed to Get cycle",
 				"",
 			},
 		},
 		{
-			"handles failure to get counter",
+			"handles failure to Get counter",
 			input{
 				gtGoldenHTTPMock(mockCycleSuccessful(mockHandler(&requestResultPair{regContractCounter, []byte(`junk`)}, blankHandler))),
 				rpc.GetFA12BalanceInput{
@@ -70,7 +70,7 @@ func Test_GetFA12Balance(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get counter for contract 'some_source': failed to parse json",
+				"failed to Get counter for contract 'some_source': failed to parse json",
 				"0",
 			},
 		},
@@ -196,7 +196,7 @@ func Test_GetFA12Supply(t *testing.T) {
 			},
 		},
 		{
-			"handles failure to get cycle",
+			"handles failure to Get cycle",
 			input{
 				gtGoldenHTTPMock(mockCycleFailed(blankHandler)),
 				rpc.GetFA12SupplyInput{
@@ -208,12 +208,12 @@ func Test_GetFA12Supply(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get cycle at hash",
+				"failed to Get cycle at hash",
 				"0",
 			},
 		},
 		{
-			"handles failure to get counter",
+			"handles failure to Get counter",
 			input{
 				gtGoldenHTTPMock(mockCycleSuccessful(mockHandler(
 					&requestResultPair{regContractCounter, []byte(`junk`)},
@@ -228,7 +228,7 @@ func Test_GetFA12Supply(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get counter for contract",
+				"failed to Get counter for contract",
 				"0",
 			},
 		},
@@ -375,7 +375,7 @@ func Test_GetFA12Allowance(t *testing.T) {
 			},
 		},
 		{
-			"handles failure to get cycle",
+			"handles failure to Get cycle",
 			input{
 				gtGoldenHTTPMock(mockCycleFailed(blankHandler)),
 				rpc.GetFA12AllowanceInput{
@@ -389,12 +389,12 @@ func Test_GetFA12Allowance(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get cycle",
+				"failed to Get cycle",
 				"0",
 			},
 		},
 		{
-			"handles failure to get counter",
+			"handles failure to Get counter",
 			input{
 				gtGoldenHTTPMock(mockCycleSuccessful(mockHandler(
 					&requestResultPair{regContractCounter, []byte(`junk`)},
@@ -411,7 +411,7 @@ func Test_GetFA12Allowance(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get counter",
+				"failed to Get counter",
 				"0",
 			},
 		},

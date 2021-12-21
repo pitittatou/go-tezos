@@ -69,7 +69,7 @@ func (c *Client) InjectionOperation(input InjectionOperationInput) (*resty.Respo
 	if err != nil {
 		return nil, "", errors.Wrap(err, "failed to inject operation")
 	}
-	resp, err := c.post("/injection/operation", v, input.contructRPCOptions()...)
+	resp, err := c.Post("/injection/operation", v, input.contructRPCOptions()...)
 	if err != nil {
 		return resp, "", errors.Wrap(err, "failed to inject operation")
 	}
@@ -93,7 +93,7 @@ func (c *Client) SimulationOperation(input InjectionOperationInput) (*resty.Resp
 	if err != nil {
 		return nil, "", errors.Wrap(err, "failed to simulate operation")
 	}
-	resp, err := c.post("/chains/main/blocks/head/helpers/scripts/simulate_operation", v, input.contructRPCOptions()...)
+	resp, err := c.Post("/chains/main/blocks/head/helpers/scripts/simulate_operation", v, input.contructRPCOptions()...)
 	if err != nil {
 		return resp, "", errors.Wrap(err, "failed to simulate operation")
 	}
@@ -174,7 +174,7 @@ func (c *Client) InjectionBlock(input InjectionBlockInput) (*resty.Response, err
 		return nil, errors.Wrap(err, "failed to inject block: invalid input")
 	}
 
-	resp, err := c.post("/injection/block", *input.Block, input.contructRPCOptions()...)
+	resp, err := c.Post("/injection/block", *input.Block, input.contructRPCOptions()...)
 	if err != nil {
 		return resp, errors.Wrap(err, "failed to inject block")
 	}
@@ -224,15 +224,15 @@ RPC:
 	https://tezos.gitlab.io/shell/rpc.html#get-network-connections
 */
 func (c *Client) Connections() (*resty.Response, Connections, error) {
-	resp, err := c.get("/network/connections")
+	resp, err := c.Get("/network/connections")
 	if err != nil {
-		return resp, Connections{}, errors.Wrapf(err, "failed to get network connections")
+		return resp, Connections{}, errors.Wrapf(err, "failed to Get network connections")
 	}
 
 	var connections Connections
 	err = json.Unmarshal(resp.Body(), &connections)
 	if err != nil {
-		return resp, Connections{}, errors.Wrapf(err, "failed to get network connections: failed to parse json")
+		return resp, Connections{}, errors.Wrapf(err, "failed to Get network connections: failed to parse json")
 	}
 
 	return resp, connections, nil
@@ -261,15 +261,15 @@ RPC:
 	https://tezos.gitlab.io/shell/rpc.html#get-monitor-active-chains
 */
 func (c *Client) ActiveChains() (*resty.Response, ActiveChains, error) {
-	resp, err := c.get("/monitor/active_chains")
+	resp, err := c.Get("/monitor/active_chains")
 	if err != nil {
-		return nil, ActiveChains{}, errors.Wrap(err, "failed to get active chains")
+		return nil, ActiveChains{}, errors.Wrap(err, "failed to Get active chains")
 	}
 
 	var activeChains ActiveChains
 	err = json.Unmarshal(resp.Body(), &activeChains)
 	if err != nil {
-		return resp, ActiveChains{}, errors.Wrap(err, "failed to get active chains: failed to parse json")
+		return resp, ActiveChains{}, errors.Wrap(err, "failed to Get active chains: failed to parse json")
 	}
 
 	return resp, activeChains, nil

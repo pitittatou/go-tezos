@@ -28,7 +28,7 @@ func Test_Block(t *testing.T) {
 			gtGoldenHTTPMock(newBlockMock().handler([]byte(`not_block_data`), blankHandler)),
 			want{
 				true,
-				"failed to get block '50': failed to parse json",
+				"failed to Get block '50': failed to parse json",
 				&rpc.Block{},
 			},
 		},
@@ -76,7 +76,7 @@ func Test_EndorsingPower(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regEndorsingPower, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get endorsing power",
+				"failed to Get endorsing power",
 				0,
 			},
 		},
@@ -85,7 +85,7 @@ func Test_EndorsingPower(t *testing.T) {
 			gtGoldenHTTPMock(newConstantsMock().handler([]byte(`junk`), blankHandler)),
 			want{
 				true,
-				"failed to get endorsing power: failed to parse json",
+				"failed to Get endorsing power: failed to parse json",
 				0,
 			},
 		},
@@ -135,7 +135,7 @@ func Test_Hash(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHash, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' hash",
+				"failed to Get block 'head' hash",
 				"",
 			},
 		},
@@ -144,7 +144,7 @@ func Test_Hash(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHash, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' hash: failed to parse json",
+				"failed to Get block 'head' hash: failed to parse json",
 				"",
 			},
 		},
@@ -193,7 +193,7 @@ func Test_Header(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeader, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' header",
+				"failed to Get block 'head' header",
 				rpc.Header{},
 			},
 		},
@@ -202,7 +202,7 @@ func Test_Header(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeader, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' header: failed to parse json",
+				"failed to Get block 'head' header: failed to parse json",
 				rpc.Header{},
 			},
 		},
@@ -249,7 +249,7 @@ func Test_HeaderRaw(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeaderRaw, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' raw header",
+				"failed to Get block 'head' raw header",
 				"",
 			},
 		},
@@ -258,7 +258,7 @@ func Test_HeaderRaw(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeaderRaw, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' raw header: failed to parse json",
+				"failed to Get block 'head' raw header: failed to parse json",
 				"",
 			},
 		},
@@ -307,7 +307,7 @@ func Test_HeaderShell(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeaderShell, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' header shell",
+				"failed to Get block 'head' header shell",
 				rpc.HeaderShell{},
 			},
 		},
@@ -316,7 +316,7 @@ func Test_HeaderShell(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeaderShell, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' header shell: failed to parse json",
+				"failed to Get block 'head' header shell: failed to parse json",
 				rpc.HeaderShell{},
 			},
 		},
@@ -365,7 +365,7 @@ func Test_HeaderProtocolData(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeaderProtocolData, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' protocol data",
+				"failed to Get block 'head' protocol data",
 				rpc.ProtocolData{},
 			},
 		},
@@ -374,7 +374,7 @@ func Test_HeaderProtocolData(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeaderProtocolData, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' protocol data: failed to parse json",
+				"failed to Get block 'head' protocol data: failed to parse json",
 				rpc.ProtocolData{},
 			},
 		},
@@ -421,7 +421,7 @@ func Test_HeaderProtocolDataRaw(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeaderProtocolDataRaw, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' raw protocol data",
+				"failed to Get block 'head' raw protocol data",
 				"",
 			},
 		},
@@ -430,7 +430,7 @@ func Test_HeaderProtocolDataRaw(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regHeaderProtocolData, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' raw protocol data: failed to parse json",
+				"failed to Get block 'head' raw protocol data: failed to parse json",
 				"",
 			},
 		},
@@ -479,7 +479,7 @@ func Test_LiveBlocks(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regLiveBlocks, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get live blocks at 'head'",
+				"failed to Get live blocks at 'head'",
 				[]string{},
 			},
 		},
@@ -488,7 +488,7 @@ func Test_LiveBlocks(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regLiveBlocks, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get live blocks at 'head': failed to parse json",
+				"failed to Get live blocks at 'head': failed to parse json",
 				[]string{},
 			},
 		},
@@ -537,7 +537,7 @@ func Test_Metadata(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regMetadata, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' metadata",
+				"failed to Get block 'head' metadata",
 				rpc.Metadata{},
 			},
 		},
@@ -546,7 +546,7 @@ func Test_Metadata(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regMetadata, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' metadata: failed to parse json",
+				"failed to Get block 'head' metadata: failed to parse json",
 				rpc.Metadata{},
 			},
 		},
@@ -593,7 +593,7 @@ func Test_MetadataHash(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regMetadataHash, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' metadata hash",
+				"failed to Get block 'head' metadata hash",
 				"",
 			},
 		},
@@ -602,7 +602,7 @@ func Test_MetadataHash(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regMetadataHash, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' metadata hash: failed to parse json",
+				"failed to Get block 'head' metadata hash: failed to parse json",
 				"",
 			},
 		},
@@ -649,7 +649,7 @@ func Test_MinimalValidTime(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regMinimalValidTime, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get minimal valid time at 'head'",
+				"failed to Get minimal valid time at 'head'",
 				"0001-01-01 00:00:00 +0000 UTC",
 			},
 		},
@@ -658,7 +658,7 @@ func Test_MinimalValidTime(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regMinimalValidTime, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get minimal valid time at 'head': failed to parse json",
+				"failed to Get minimal valid time at 'head': failed to parse json",
 				"0001-01-01 00:00:00 +0000 UTC",
 			},
 		},
@@ -708,7 +708,7 @@ func Test_OperationHashes(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regOperationHashes, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' operation hashes",
+				"failed to Get block 'head' operation hashes",
 				rpc.OperationHashes{},
 			},
 		},
@@ -717,7 +717,7 @@ func Test_OperationHashes(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regOperationHashes, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' operation hashes",
+				"failed to Get block 'head' operation hashes",
 				rpc.OperationHashes{},
 			},
 		},
@@ -768,7 +768,7 @@ func Test_OperationMetadataHashes(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regOperationMetadataHashes, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' operation metadata hashes",
+				"failed to Get block 'head' operation metadata hashes",
 				rpc.OperationMetadataHashes{},
 			},
 		},
@@ -777,7 +777,7 @@ func Test_OperationMetadataHashes(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regOperationMetadataHashes, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' operation metadata hashes",
+				"failed to Get block 'head' operation metadata hashes",
 				rpc.OperationMetadataHashes{},
 			},
 		},
@@ -828,7 +828,7 @@ func Test_Operations(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regOperations, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' operations",
+				"failed to Get block 'head' operations",
 				rpc.FlattenedOperations{},
 			},
 		},
@@ -837,7 +837,7 @@ func Test_Operations(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regOperations, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' operations",
+				"failed to Get block 'head' operations",
 				rpc.FlattenedOperations{},
 			},
 		},
@@ -886,7 +886,7 @@ func Test_OperationsMetadataHash(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regOperationsMetadataHash, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' operations metadata hash",
+				"failed to Get block 'head' operations metadata hash",
 				"",
 			},
 		},
@@ -895,7 +895,7 @@ func Test_OperationsMetadataHash(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regOperationsMetadataHash, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' operations metadata hash",
+				"failed to Get block 'head' operations metadata hash",
 				"",
 			},
 		},
@@ -944,7 +944,7 @@ func Test_Protocols(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regProtocols, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' protocols",
+				"failed to Get block 'head' protocols",
 				rpc.Protocols{},
 			},
 		},
@@ -953,7 +953,7 @@ func Test_Protocols(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regProtocols, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' protocols",
+				"failed to Get block 'head' protocols",
 				rpc.Protocols{},
 			},
 		},
@@ -1000,7 +1000,7 @@ func Test_RequiredEndorsements(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regRequiredEndorsements, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' required endorsements",
+				"failed to Get block 'head' required endorsements",
 				0,
 			},
 		},
@@ -1009,7 +1009,7 @@ func Test_RequiredEndorsements(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regRequiredEndorsements, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get block 'head' required endorsements",
+				"failed to Get block 'head' required endorsements",
 				0,
 			},
 		},

@@ -77,7 +77,7 @@ RPC:
 type BigMapInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The ID of the BigMap you wish to query.
 	BigMapID int `validate:"required"`
@@ -97,12 +97,12 @@ RPC:
 func (c *Client) BigMap(input BigMapInput) (*resty.Response, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, errors.Wrapf(err, "failed to get big map '%d' value with key '%s'", input.BigMapID, input.ScriptExpression)
+		return resp, errors.Wrapf(err, "failed to Get big map '%d' value with key '%s'", input.BigMapID, input.ScriptExpression)
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/big_maps/%d/%s", c.chain, blockID.ID(), input.BigMapID, input.ScriptExpression))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/big_maps/%d/%s", c.chain, blockID.ID(), input.BigMapID, input.ScriptExpression))
 	if err != nil {
-		return nil, errors.Wrapf(err, "failed to get big map '%d' value with key '%s'", input.BigMapID, input.ScriptExpression)
+		return nil, errors.Wrapf(err, "failed to Get big map '%d' value with key '%s'", input.BigMapID, input.ScriptExpression)
 	}
 
 	return resp, nil
@@ -184,7 +184,7 @@ RPC:
 type ConstantsInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 }
 
@@ -200,18 +200,18 @@ RPC:
 func (c *Client) Constants(input ConstantsInput) (*resty.Response, Constants, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, Constants{}, errors.Wrap(err, "failed to get constants")
+		return resp, Constants{}, errors.Wrap(err, "failed to Get constants")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/constants", c.chain, blockID.ID()))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/constants", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, Constants{}, errors.Wrapf(err, "failed to get constants")
+		return resp, Constants{}, errors.Wrapf(err, "failed to Get constants")
 	}
 
 	var constants Constants
 	err = json.Unmarshal(resp.Body(), &constants)
 	if err != nil {
-		return resp, constants, errors.Wrapf(err, "failed to get constants: failed to parse json")
+		return resp, constants, errors.Wrapf(err, "failed to Get constants: failed to parse json")
 	}
 
 	return resp, constants, nil
@@ -229,7 +229,7 @@ RPC:
 type ContractsInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 }
 
@@ -245,18 +245,18 @@ RPC:
 func (c *Client) Contracts(input ContractsInput) (*resty.Response, []string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, []string{}, errors.Wrap(err, "failed to get contracts")
+		return resp, []string{}, errors.Wrap(err, "failed to Get contracts")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts", c.chain, blockID.ID()))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, []string{}, errors.Wrapf(err, "failed to get contracts")
+		return resp, []string{}, errors.Wrapf(err, "failed to Get contracts")
 	}
 
 	var contracts []string
 	err = json.Unmarshal(resp.Body(), &contracts)
 	if err != nil {
-		return resp, []string{}, errors.Wrapf(err, "failed to get contracts: failed to parse json")
+		return resp, []string{}, errors.Wrapf(err, "failed to Get contracts: failed to parse json")
 	}
 
 	return resp, contracts, nil
@@ -287,9 +287,9 @@ RPC:
 type ContractInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
-	// The contract ID of the contract you wish to get.
+	// The contract ID of the contract you wish to Get.
 	ContractID string `validate:"required"`
 }
 
@@ -305,18 +305,18 @@ RPC:
 func (c *Client) Contract(input ContractInput) (*resty.Response, Contract, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, Contract{}, errors.Wrap(err, "failed to get contract")
+		return resp, Contract{}, errors.Wrap(err, "failed to Get contract")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s", c.chain, blockID.ID(), input.ContractID))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s", c.chain, blockID.ID(), input.ContractID))
 	if err != nil {
-		return resp, Contract{}, errors.Wrapf(err, "failed to get contract '%s'", input.ContractID)
+		return resp, Contract{}, errors.Wrapf(err, "failed to Get contract '%s'", input.ContractID)
 	}
 
 	var contract Contract
 	err = json.Unmarshal(resp.Body(), &contract)
 	if err != nil {
-		return resp, Contract{}, errors.Wrapf(err, "failed to get contract '%s': failed to parse json", input.ContractID)
+		return resp, Contract{}, errors.Wrapf(err, "failed to Get contract '%s': failed to parse json", input.ContractID)
 	}
 
 	return resp, contract, nil
@@ -331,9 +331,9 @@ RPC:
 type ContractBalanceInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided Blockhash is required.
+	// The cycle to Get the balance at. If not provided Blockhash is required.
 	Cycle int
-	// The contract ID of the contract balance you wish to get.
+	// The contract ID of the contract balance you wish to Get.
 	ContractID string `validate:"required"`
 }
 
@@ -349,17 +349,17 @@ RPC:
 func (c *Client) ContractBalance(input ContractBalanceInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "", errors.Wrap(err, "failed to get balance")
+		return resp, "", errors.Wrap(err, "failed to Get balance")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/balance", c.chain, blockID.ID(), input.ContractID))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/balance", c.chain, blockID.ID(), input.ContractID))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get balance for contract '%s'", input.ContractID)
+		return resp, "", errors.Wrapf(err, "failed to Get balance for contract '%s'", input.ContractID)
 	}
 
 	var balance string
 	if err = json.Unmarshal(resp.Body(), &balance); err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get balance for contract '%s': failed to parse json", input.ContractID)
+		return resp, "", errors.Wrapf(err, "failed to Get balance for contract '%s': failed to parse json", input.ContractID)
 	}
 
 	return resp, balance, nil
@@ -374,9 +374,9 @@ RPC:
 type ContractCounterInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided Blockhash is required.
+	// The cycle to Get the balance at. If not provided Blockhash is required.
 	Cycle int
-	// The contract ID of the contract counter you wish to get.
+	// The contract ID of the contract counter you wish to Get.
 	ContractID string `validate:"required"`
 }
 
@@ -392,23 +392,23 @@ RPC:
 func (c *Client) ContractCounter(input ContractCounterInput) (*resty.Response, int, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, 0, errors.Wrap(err, "failed to get counter")
+		return resp, 0, errors.Wrap(err, "failed to Get counter")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/counter", c.chain, blockID.ID(), input.ContractID))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/counter", c.chain, blockID.ID(), input.ContractID))
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get counter for contract '%s'", input.ContractID)
+		return resp, 0, errors.Wrapf(err, "failed to Get counter for contract '%s'", input.ContractID)
 	}
 
 	var strCounter string
 	err = json.Unmarshal(resp.Body(), &strCounter)
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get counter for contract '%s': failed to parse json", input.ContractID)
+		return resp, 0, errors.Wrapf(err, "failed to Get counter for contract '%s': failed to parse json", input.ContractID)
 	}
 
 	counter, err := strconv.Atoi(strCounter)
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get counter for contract '%s': failed to convert to int", input.ContractID)
+		return resp, 0, errors.Wrapf(err, "failed to Get counter for contract '%s': failed to convert to int", input.ContractID)
 	}
 	return resp, counter, nil
 }
@@ -422,9 +422,9 @@ RPC:
 type ContractDelegateInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
-	// The contract ID of the contract delegate you wish to get.
+	// The contract ID of the contract delegate you wish to Get.
 	ContractID string `validate:"required"`
 }
 
@@ -440,18 +440,18 @@ RPC:
 func (c *Client) ContractDelegate(input ContractDelegateInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "", errors.Wrap(err, "failed to get delegate")
+		return resp, "", errors.Wrap(err, "failed to Get delegate")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/delegate", c.chain, blockID.ID(), input.ContractID))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/delegate", c.chain, blockID.ID(), input.ContractID))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate for contract '%s'", input.ContractID)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate for contract '%s'", input.ContractID)
 	}
 
 	var delegate string
 	err = json.Unmarshal(resp.Body(), &delegate)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate for contract '%s': failed to parse json", input.ContractID)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate for contract '%s': failed to parse json", input.ContractID)
 	}
 
 	return resp, delegate, nil
@@ -466,7 +466,7 @@ RPC:
 type ContractEntrypointsInput struct {
 	// The block of which you want to make the query.
 	BlockID BlockID `validate:"required"`
-	// The contract ID of the contract delegate you wish to get.
+	// The contract ID of the contract delegate you wish to Get.
 	ContractID string `validate:"required"`
 }
 
@@ -483,30 +483,30 @@ RPC:
 func (c *Client) ContractEntrypoints(input ContractEntrypointsInput) (*resty.Response, map[string]*json.RawMessage, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, nil, errors.Wrap(err, "failed to get entrypoints: invalid input")
+		return nil, nil, errors.Wrap(err, "failed to Get entrypoints: invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/entrypoints", c.chain, input.BlockID.ID(), input.ContractID))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/entrypoints", c.chain, input.BlockID.ID(), input.ContractID))
 	if err != nil {
-		return resp, nil, errors.Wrapf(err, "failed to get entrypoints for contract '%s'", input.ContractID)
+		return resp, nil, errors.Wrapf(err, "failed to Get entrypoints for contract '%s'", input.ContractID)
 	}
 
 	entrypoints := make(map[string]*json.RawMessage)
 	var p fastjson.Parser
 	parsedJSON, err := p.Parse(string(resp.Body()))
 	if err != nil {
-		return resp, entrypoints, errors.Wrapf(err, "failed to get entrypoints for contract '%s': failed to parse json", input.ContractID)
+		return resp, entrypoints, errors.Wrapf(err, "failed to Get entrypoints for contract '%s': failed to parse json", input.ContractID)
 	}
 
 	obj, err := parsedJSON.Object()
 	if err != nil {
-		return resp, entrypoints, errors.Wrapf(err, "failed to get entrypoints for contract '%s': unrecognized json", input.ContractID)
+		return resp, entrypoints, errors.Wrapf(err, "failed to Get entrypoints for contract '%s': unrecognized json", input.ContractID)
 	}
 
 	if v := obj.Get("entrypoints"); v != nil {
 		obj, err = v.Object()
 		if err != nil {
-			return resp, entrypoints, errors.Wrapf(err, "failed to get entrypoints for contract '%s': unrecognized json", input.ContractID)
+			return resp, entrypoints, errors.Wrapf(err, "failed to Get entrypoints for contract '%s': unrecognized json", input.ContractID)
 		}
 		obj.Visit(func(key []byte, v *fastjson.Value) {
 			rawMessage := &json.RawMessage{}
@@ -527,9 +527,9 @@ RPC:
 type ContractEntrypointInput struct {
 	// The block of which you want to make the query.
 	BlockID BlockID `validate:"required"`
-	// The contract ID of the contract delegate you wish to get.
+	// The contract ID of the contract delegate you wish to Get.
 	ContractID string `validate:"required"`
-	// The entrypoint of the contract you wish to get.
+	// The entrypoint of the contract you wish to Get.
 	Entrypoint string `validate:"required"`
 }
 
@@ -545,12 +545,12 @@ RPC:
 func (c *Client) ContractEntrypoint(input ContractEntrypointInput) (*resty.Response, *json.RawMessage, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, nil, errors.Wrap(err, "failed to get entrypoint: invalid input")
+		return nil, nil, errors.Wrap(err, "failed to Get entrypoint: invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/entrypoints/%s", c.chain, input.BlockID.ID(), input.ContractID, input.Entrypoint))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/entrypoints/%s", c.chain, input.BlockID.ID(), input.ContractID, input.Entrypoint))
 	if err != nil {
-		return resp, nil, errors.Wrapf(err, "failed to get entrypoint '%s' for contract '%s'", input.Entrypoint, input.ContractID)
+		return resp, nil, errors.Wrapf(err, "failed to Get entrypoint '%s' for contract '%s'", input.Entrypoint, input.ContractID)
 	}
 
 	rawMessage := &json.RawMessage{}
@@ -568,7 +568,7 @@ RPC:
 type ContractManagerKeyInput struct {
 	// The block of which you want to make the query.
 	BlockID BlockID `validate:"required"`
-	// The contract ID of the contract delegate you wish to get.
+	// The contract ID of the contract delegate you wish to Get.
 	ContractID string `validate:"required"`
 }
 
@@ -584,18 +584,18 @@ RPC:
 func (c *Client) ContractManagerKey(input ContractManagerKeyInput) (*resty.Response, string, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, "", errors.Wrap(err, "failed to get manager: invalid input")
+		return nil, "", errors.Wrap(err, "failed to Get manager: invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/manager_key", c.chain, input.BlockID.ID(), input.ContractID))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/manager_key", c.chain, input.BlockID.ID(), input.ContractID))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get manager for contract '%s'", input.ContractID)
+		return resp, "", errors.Wrapf(err, "failed to Get manager for contract '%s'", input.ContractID)
 	}
 
 	var manager string
 	err = json.Unmarshal(resp.Body(), &manager)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get manager for contract '%s': failed to parse json", input.ContractID)
+		return resp, "", errors.Wrapf(err, "failed to Get manager for contract '%s': failed to parse json", input.ContractID)
 	}
 
 	return resp, manager, nil
@@ -610,9 +610,9 @@ RPC:
 type ContractScriptInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
-	// The contract ID of the contract delegate you wish to get.
+	// The contract ID of the contract delegate you wish to Get.
 	ContractID string `validate:"required"`
 }
 
@@ -628,12 +628,12 @@ RPC:
 func (c *Client) ContractScript(input ContractScriptInput) (*resty.Response, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, errors.Wrap(err, "failed to get script")
+		return resp, errors.Wrap(err, "failed to Get script")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/script", c.chain, blockID.ID(), input.ContractID))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/script", c.chain, blockID.ID(), input.ContractID))
 	if err != nil {
-		return resp, errors.Wrapf(err, "failed to get script for contract '%s'", input.ContractID)
+		return resp, errors.Wrapf(err, "failed to Get script for contract '%s'", input.ContractID)
 	}
 
 	return resp, nil
@@ -648,9 +648,9 @@ RPC:
 type ContractSaplingDiffInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
-	// The contract ID of the contract delegate you wish to get.
+	// The contract ID of the contract delegate you wish to Get.
 	ContractID string `validate:"required"`
 	//  Commitments and ciphertexts are returned from the specified offset up to the most recent.
 	OffsetCommitment int
@@ -670,12 +670,12 @@ RPC:
 func (c *Client) ContractSaplingDiff(input ContractSaplingDiffInput) (*resty.Response, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, errors.Wrap(err, "failed to get script")
+		return resp, errors.Wrap(err, "failed to Get script")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/single_sapling_get_diff", c.chain, blockID.ID(), input.ContractID), input.contructRPCOptions()...)
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/single_sapling_get_diff", c.chain, blockID.ID(), input.ContractID), input.contructRPCOptions()...)
 	if err != nil {
-		return resp, errors.Wrapf(err, "failed to get single sapling diff for contract '%s'", input.ContractID)
+		return resp, errors.Wrapf(err, "failed to Get single sapling diff for contract '%s'", input.ContractID)
 	}
 
 	return resp, nil
@@ -721,9 +721,9 @@ RPC:
 type ContractStorageInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
-	// The contract ID of the contract delegate you wish to get.
+	// The contract ID of the contract delegate you wish to Get.
 	ContractID string `validate:"required"`
 }
 
@@ -739,12 +739,12 @@ RPC:
 func (c *Client) ContractStorage(input ContractStorageInput) (*resty.Response, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, errors.Wrap(err, "failed to get storage")
+		return resp, errors.Wrap(err, "failed to Get storage")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/storage", c.chain, blockID.ID(), input.ContractID))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/contracts/%s/storage", c.chain, blockID.ID(), input.ContractID))
 	if err != nil {
-		return resp, errors.Wrapf(err, "failed to get storage for contract '%s'", input.ContractID)
+		return resp, errors.Wrapf(err, "failed to Get storage for contract '%s'", input.ContractID)
 	}
 
 	return resp, nil
@@ -759,7 +759,7 @@ RPC:
 type DelegatesInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The block level of which you want to make the query.
 	active bool
@@ -779,18 +779,18 @@ RPC:
 func (c *Client) Delegates(input DelegatesInput) (*resty.Response, []string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, []string{}, errors.Wrap(err, "failed to get delegates")
+		return resp, []string{}, errors.Wrap(err, "failed to Get delegates")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates", c.chain, blockID.ID()), input.contructRPCOptions()...)
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates", c.chain, blockID.ID()), input.contructRPCOptions()...)
 	if err != nil {
-		return resp, []string{}, errors.Wrap(err, "failed to get delegates")
+		return resp, []string{}, errors.Wrap(err, "failed to Get delegates")
 	}
 
 	var delegates []string
 	err = json.Unmarshal(resp.Body(), &delegates)
 	if err != nil {
-		return resp, []string{}, errors.Wrap(err, "failed to get delegates: failed to parse json")
+		return resp, []string{}, errors.Wrap(err, "failed to Get delegates: failed to parse json")
 	}
 
 	return resp, delegates, nil
@@ -856,7 +856,7 @@ RPC:
 type DelegateInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -874,18 +874,18 @@ RPC:
 func (c *Client) Delegate(input DelegateInput) (*resty.Response, Delegate, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, Delegate{}, errors.Wrap(err, "failed to get delegate")
+		return resp, Delegate{}, errors.Wrap(err, "failed to Get delegate")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, Delegate{}, errors.Wrapf(err, "failed to get delegate '%s'", input.Delegate)
+		return resp, Delegate{}, errors.Wrapf(err, "failed to Get delegate '%s'", input.Delegate)
 	}
 
 	var delegate Delegate
 	err = json.Unmarshal(resp.Body(), &delegate)
 	if err != nil {
-		return resp, delegate, errors.Wrapf(err, "failed to get delegate '%s': failed to parse json", input.Delegate)
+		return resp, delegate, errors.Wrapf(err, "failed to Get delegate '%s': failed to parse json", input.Delegate)
 	}
 
 	return resp, delegate, nil
@@ -900,7 +900,7 @@ RPC:
 type DelegateBalanceInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -918,18 +918,18 @@ RPC:
 func (c *Client) DelegateBalance(input DelegateBalanceInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "", errors.Wrap(err, "failed to get delegate balance")
+		return resp, "", errors.Wrap(err, "failed to Get delegate balance")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/balance", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/balance", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate '%s' balance", input.Delegate)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate '%s' balance", input.Delegate)
 	}
 
 	var balance string
 	err = json.Unmarshal(resp.Body(), &balance)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate '%s' balance: failed to parse json", input.Delegate)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate '%s' balance: failed to parse json", input.Delegate)
 	}
 
 	return resp, balance, nil
@@ -944,7 +944,7 @@ RPC:
 type DelegateDeactivatedInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -962,18 +962,18 @@ RPC:
 func (c *Client) DelegateDeactivated(input DelegateDeactivatedInput) (*resty.Response, bool, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, false, errors.Wrap(err, "failed to get delegate activation status")
+		return resp, false, errors.Wrap(err, "failed to Get delegate activation status")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/deactivated", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/deactivated", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, false, errors.Wrapf(err, "failed to get delegate '%s' activation status", input.Delegate)
+		return resp, false, errors.Wrapf(err, "failed to Get delegate '%s' activation status", input.Delegate)
 	}
 
 	var deactivated bool
 	err = json.Unmarshal(resp.Body(), &deactivated)
 	if err != nil {
-		return resp, false, errors.Wrapf(err, "failed to get delegate '%s' activation status: failed to parse json", input.Delegate)
+		return resp, false, errors.Wrapf(err, "failed to Get delegate '%s' activation status: failed to parse json", input.Delegate)
 	}
 
 	return resp, deactivated, nil
@@ -988,7 +988,7 @@ RPC:
 type DelegateDelegatedBalanceInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -1007,18 +1007,18 @@ RPC:
 func (c *Client) DelegateDelegatedBalance(input DelegateDelegatedBalanceInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "", errors.Wrap(err, "failed to get delegate delegated balance")
+		return resp, "", errors.Wrap(err, "failed to Get delegate delegated balance")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/delegated_balance", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/delegated_balance", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate '%s' delegated balance", input.Delegate)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate '%s' delegated balance", input.Delegate)
 	}
 
 	var balance string
 	err = json.Unmarshal(resp.Body(), &balance)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate '%s' delegated balance: failed to parse json", input.Delegate)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate '%s' delegated balance: failed to parse json", input.Delegate)
 	}
 
 	return resp, balance, nil
@@ -1033,7 +1033,7 @@ RPC:
 type DelegateDelegatedContractsInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -1051,18 +1051,18 @@ RPC:
 func (c *Client) DelegateDelegatedContracts(input DelegateDelegatedContractsInput) (*resty.Response, []string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, []string{}, errors.Wrap(err, "failed to get delegate delegated contracts")
+		return resp, []string{}, errors.Wrap(err, "failed to Get delegate delegated contracts")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/delegated_contracts", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/delegated_contracts", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, []string{}, errors.Wrapf(err, "failed to get delegate '%s' delegated contracts", input.Delegate)
+		return resp, []string{}, errors.Wrapf(err, "failed to Get delegate '%s' delegated contracts", input.Delegate)
 	}
 
 	var delegatedContracts []string
 	err = json.Unmarshal(resp.Body(), &delegatedContracts)
 	if err != nil {
-		return resp, []string{}, errors.Wrapf(err, "failed to get delegate '%s' delegated contracts: failed to parse json", input.Delegate)
+		return resp, []string{}, errors.Wrapf(err, "failed to Get delegate '%s' delegated contracts: failed to parse json", input.Delegate)
 	}
 
 	return resp, delegatedContracts, nil
@@ -1077,7 +1077,7 @@ RPC:
 type DelegateFrozenBalanceInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -1096,18 +1096,18 @@ RPC:
 func (c *Client) DelegateFrozenBalance(input DelegateFrozenBalanceInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "", errors.Wrap(err, "failed to get delegate frozen balance")
+		return resp, "", errors.Wrap(err, "failed to Get delegate frozen balance")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/frozen_balance", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/frozen_balance", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate '%s' frozen balance", input.Delegate)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate '%s' frozen balance", input.Delegate)
 	}
 
 	var balance string
 	err = json.Unmarshal(resp.Body(), &balance)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate '%s' frozen balance: failed to parse json", input.Delegate)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate '%s' frozen balance: failed to parse json", input.Delegate)
 	}
 
 	return resp, balance, nil
@@ -1135,7 +1135,7 @@ RPC:
 type DelegateFrozenBalanceByCycleInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -1154,18 +1154,18 @@ RPC:
 func (c *Client) DelegateFrozenBalanceByCycle(input DelegateFrozenBalanceByCycleInput) (*resty.Response, []FrozenBalanceByCycle, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, []FrozenBalanceByCycle{}, errors.Wrap(err, "failed to get delegate frozen balance at cycle")
+		return resp, []FrozenBalanceByCycle{}, errors.Wrap(err, "failed to Get delegate frozen balance at cycle")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/frozen_balance_by_cycle", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/frozen_balance_by_cycle", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, []FrozenBalanceByCycle{}, errors.Wrapf(err, "failed to get delegate '%s' frozen balance at cycle", input.Delegate)
+		return resp, []FrozenBalanceByCycle{}, errors.Wrapf(err, "failed to Get delegate '%s' frozen balance at cycle", input.Delegate)
 	}
 
 	var frozenBalanceAtCycle []FrozenBalanceByCycle
 	err = json.Unmarshal(resp.Body(), &frozenBalanceAtCycle)
 	if err != nil {
-		return resp, []FrozenBalanceByCycle{}, errors.Wrapf(err, "failed to get delegate '%s' frozen balance at cycle: failed to parse json", input.Delegate)
+		return resp, []FrozenBalanceByCycle{}, errors.Wrapf(err, "failed to Get delegate '%s' frozen balance at cycle: failed to parse json", input.Delegate)
 	}
 
 	return resp, frozenBalanceAtCycle, nil
@@ -1180,7 +1180,7 @@ RPC:
 type DelegateGracePeriodInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -1202,18 +1202,18 @@ RPC:
 func (c *Client) DelegateGracePeriod(input DelegateGracePeriodInput) (*resty.Response, int, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, 0, errors.Wrap(err, "failed to get delegate grace period")
+		return resp, 0, errors.Wrap(err, "failed to Get delegate grace period")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/grace_period", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/grace_period", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get delegate '%s' grace period", input.Delegate)
+		return resp, 0, errors.Wrapf(err, "failed to Get delegate '%s' grace period", input.Delegate)
 	}
 
 	var gracePeriod int
 	err = json.Unmarshal(resp.Body(), &gracePeriod)
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get delegate '%s' grace period: failed to parse json", input.Delegate)
+		return resp, 0, errors.Wrapf(err, "failed to Get delegate '%s' grace period: failed to parse json", input.Delegate)
 	}
 
 	return resp, gracePeriod, nil
@@ -1228,7 +1228,7 @@ RPC:
 type DelegateStakingBalanceInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -1250,18 +1250,18 @@ RPC:
 func (c *Client) DelegateStakingBalance(input DelegateStakingBalanceInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "", errors.Wrap(err, "failed to get delegate staking balance")
+		return resp, "", errors.Wrap(err, "failed to Get delegate staking balance")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/staking_balance", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/staking_balance", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate '%s' staking balance", input.Delegate)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate '%s' staking balance", input.Delegate)
 	}
 
 	var stakingBalance string
 	err = json.Unmarshal(resp.Body(), &stakingBalance)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get delegate '%s' staking balance: failed to parse json", input.Delegate)
+		return resp, "", errors.Wrapf(err, "failed to Get delegate '%s' staking balance: failed to parse json", input.Delegate)
 	}
 
 	return resp, stakingBalance, nil
@@ -1276,7 +1276,7 @@ RPC:
 type DelegateVotingPowerInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The delegate that you want to make the query.
 	Delegate string `validate:"required"`
@@ -1294,18 +1294,18 @@ RPC:
 func (c *Client) DelegateVotingPower(input DelegateVotingPowerInput) (*resty.Response, int, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, 0, errors.Wrap(err, "failed to get delegate voting power")
+		return resp, 0, errors.Wrap(err, "failed to Get delegate voting power")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/voting_power", c.chain, blockID.ID(), input.Delegate))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/delegates/%s/voting_power", c.chain, blockID.ID(), input.Delegate))
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get delegate '%s' voting power", input.Delegate)
+		return resp, 0, errors.Wrapf(err, "failed to Get delegate '%s' voting power", input.Delegate)
 	}
 
 	var votingPower int
 	err = json.Unmarshal(resp.Body(), &votingPower)
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get delegate '%s' voting power: failed to parse json", input.Delegate)
+		return resp, 0, errors.Wrapf(err, "failed to Get delegate '%s' voting power: failed to parse json", input.Delegate)
 	}
 
 	return resp, votingPower, nil
@@ -1352,7 +1352,7 @@ RPC:
 type NoncesInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided BlockID is required.
+	// The cycle to Get the balance at. If not provided BlockID is required.
 	Cycle int
 	// The level at which you want the nonces for
 	Level int `validate:"required"`
@@ -1370,18 +1370,18 @@ RPC:
 func (c *Client) Nonces(input NoncesInput) (*resty.Response, Nonces, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, Nonces{}, errors.Wrapf(err, "failed to get nonces at level '%d'", input.Level)
+		return resp, Nonces{}, errors.Wrapf(err, "failed to Get nonces at level '%d'", input.Level)
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/nonces/%d", c.chain, blockID.ID(), input.Level))
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/nonces/%d", c.chain, blockID.ID(), input.Level))
 	if err != nil {
-		return resp, Nonces{}, errors.Wrapf(err, "failed to get nonces at level '%d'", input.Level)
+		return resp, Nonces{}, errors.Wrapf(err, "failed to Get nonces at level '%d'", input.Level)
 	}
 
 	var nonces Nonces
 	err = json.Unmarshal(resp.Body(), &nonces)
 	if err != nil {
-		return resp, Nonces{}, errors.Wrapf(err, "failed to get nonces at level '%d': failed to parse json", input.Level)
+		return resp, Nonces{}, errors.Wrapf(err, "failed to Get nonces at level '%d': failed to parse json", input.Level)
 	}
 
 	return resp, nonces, nil
@@ -1396,7 +1396,7 @@ RPC:
 type RawBytesInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If empty Blockhash is required.
+	// The cycle to Get the balance at. If empty Blockhash is required.
 	Cycle int
 	// The depth at which you want the raw bytes.
 	Depth int
@@ -1414,12 +1414,12 @@ RPC:
 func (c *Client) RawBytes(input RawBytesInput) (*resty.Response, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, errors.Wrap(err, "failed to get raw bytes")
+		return resp, errors.Wrap(err, "failed to Get raw bytes")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/raw/bytes", c.chain, blockID.ID()), input.constructRPCOptions()...)
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/raw/bytes", c.chain, blockID.ID()), input.constructRPCOptions()...)
 	if err != nil {
-		return resp, errors.Wrap(err, "failed to get raw bytes")
+		return resp, errors.Wrap(err, "failed to Get raw bytes")
 	}
 
 	return resp, nil
@@ -1445,9 +1445,9 @@ RPC:
 type SaplingDiffInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided Blockhash is required.
+	// The cycle to Get the balance at. If not provided Blockhash is required.
 	Cycle int
-	// The sapling state ID of the sapling you wish to get.
+	// The sapling state ID of the sapling you wish to Get.
 	SaplingStateID string `validate:"required"`
 	//  Commitments and ciphertexts are returned from the specified offset up to the most recent.
 	OffsetCommitment int
@@ -1467,12 +1467,12 @@ RPC:
 func (c *Client) SaplingDiff(input SaplingDiffInput) (*resty.Response, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, errors.Wrap(err, "failed to get script")
+		return resp, errors.Wrap(err, "failed to Get script")
 	}
 
-	resp, err = c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/sapling/%s/get_diff", c.chain, blockID.ID(), input.SaplingStateID), input.contructRPCOptions()...)
+	resp, err = c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/sapling/%s/get_diff", c.chain, blockID.ID(), input.SaplingStateID), input.contructRPCOptions()...)
 	if err != nil {
-		return resp, errors.Wrapf(err, "failed to get sapling diff for sapling '%s'", input.SaplingStateID)
+		return resp, errors.Wrapf(err, "failed to Get sapling diff for sapling '%s'", input.SaplingStateID)
 	}
 
 	return resp, nil
@@ -1518,7 +1518,7 @@ RPC:
 type SeedInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided Blockhash is required.
+	// The cycle to Get the balance at. If not provided Blockhash is required.
 	Cycle int
 }
 
@@ -1534,18 +1534,18 @@ RPC:
 func (c *Client) Seed(input SeedInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "", errors.Wrap(err, "failed to get seed")
+		return resp, "", errors.Wrap(err, "failed to Get seed")
 	}
 
-	resp, err = c.post(fmt.Sprintf("/chains/%s/blocks/%s/context/seed", c.chain, blockID.ID()), []byte(`{}`))
+	resp, err = c.Post(fmt.Sprintf("/chains/%s/blocks/%s/context/seed", c.chain, blockID.ID()), []byte(`{}`))
 	if err != nil {
-		return resp, "", errors.Wrap(err, "failed to get seed")
+		return resp, "", errors.Wrap(err, "failed to Get seed")
 	}
 
 	var seed string
 	err = json.Unmarshal(resp.Body(), &seed)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get seed: failed to parse json")
+		return resp, "", errors.Wrapf(err, "failed to Get seed: failed to parse json")
 	}
 
 	return resp, seed, nil
@@ -1577,11 +1577,11 @@ RPC:
 func (c *Client) Cycle(cycle int) (*resty.Response, Cycle, error) {
 	resp, head, err := c.Block(&BlockIDHead{})
 	if err != nil {
-		return resp, Cycle{}, errors.Wrapf(err, "failed to get cycle '%d'", cycle)
+		return resp, Cycle{}, errors.Wrapf(err, "failed to Get cycle '%d'", cycle)
 	}
 
 	if cycle > head.Metadata.Level.Cycle+c.networkConstants.PreservedCycles-1 {
-		return resp, Cycle{}, errors.Errorf("failed to get cycle '%d': request is in the future", cycle)
+		return resp, Cycle{}, errors.Errorf("failed to Get cycle '%d': request is in the future", cycle)
 	}
 
 	var cyc Cycle
@@ -1589,19 +1589,19 @@ func (c *Client) Cycle(cycle int) (*resty.Response, Cycle, error) {
 		id := BlockIDLevel(cycle*c.networkConstants.BlocksPerCycle + 1)
 		resp, block, err := c.Block(&id)
 		if err != nil {
-			return resp, Cycle{}, errors.Wrapf(err, "failed to get cycle '%d'", cycle)
+			return resp, Cycle{}, errors.Wrapf(err, "failed to Get cycle '%d'", cycle)
 		}
 
 		resp, cyc, err = c.getCycleAtHash(block.Hash, cycle)
 		if err != nil {
-			return resp, Cycle{}, errors.Wrapf(err, "failed to get cycle '%d'", cycle)
+			return resp, Cycle{}, errors.Wrapf(err, "failed to Get cycle '%d'", cycle)
 		}
 
 	} else {
 		var err error
 		resp, cyc, err = c.getCycleAtHash(head.Hash, cycle)
 		if err != nil {
-			return resp, Cycle{}, errors.Wrapf(err, "failed to get cycle '%d'", cycle)
+			return resp, Cycle{}, errors.Wrapf(err, "failed to Get cycle '%d'", cycle)
 		}
 	}
 
@@ -1613,7 +1613,7 @@ func (c *Client) Cycle(cycle int) (*resty.Response, Cycle, error) {
 
 	resp, block, err := c.Block(&id)
 	if err != nil {
-		return resp, cyc, errors.Wrapf(err, "failed to get cycle '%d'", cycle)
+		return resp, cyc, errors.Wrapf(err, "failed to Get cycle '%d'", cycle)
 	}
 
 	cyc.BlockHash = block.Hash
@@ -1621,15 +1621,15 @@ func (c *Client) Cycle(cycle int) (*resty.Response, Cycle, error) {
 }
 
 func (c *Client) getCycleAtHash(blockhash string, cycle int) (*resty.Response, Cycle, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/context/raw/json/cycle/%d", c.chain, blockhash, cycle))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/context/raw/json/cycle/%d", c.chain, blockhash, cycle))
 	if err != nil {
-		return resp, Cycle{}, errors.Wrapf(err, "failed to get cycle at hash '%s'", blockhash)
+		return resp, Cycle{}, errors.Wrapf(err, "failed to Get cycle at hash '%s'", blockhash)
 	}
 
 	var cyc Cycle
 	err = json.Unmarshal(resp.Body(), &cyc)
 	if err != nil {
-		return resp, cyc, errors.Wrapf(err, "failed to get cycle at hash '%s': failed to parse json", blockhash)
+		return resp, cyc, errors.Wrapf(err, "failed to Get cycle at hash '%s': failed to parse json", blockhash)
 	}
 
 	return resp, cyc, nil

@@ -143,7 +143,7 @@ func Test_Connections(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regConnections, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get network connections",
+				"failed to Get network connections",
 				rpc.Connections{},
 			},
 		},
@@ -152,7 +152,7 @@ func Test_Connections(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regConnections, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get network connections: failed to parse json",
+				"failed to Get network connections: failed to parse json",
 				rpc.Connections{},
 			},
 		},
@@ -199,7 +199,7 @@ func Test_ActiveChains(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regActiveChains, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get active chains",
+				"failed to Get active chains",
 				rpc.ActiveChains{},
 			},
 		},
@@ -208,7 +208,7 @@ func Test_ActiveChains(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regActiveChains, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get active chains: failed to parse json",
+				"failed to Get active chains: failed to parse json",
 				rpc.ActiveChains{},
 			},
 		},

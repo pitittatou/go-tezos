@@ -29,7 +29,7 @@ func Test_BakingRights(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regBakingRights, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get baking rights",
+				"failed to Get baking rights",
 				[]rpc.BakingRights{},
 			},
 		},
@@ -38,7 +38,7 @@ func Test_BakingRights(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regBakingRights, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get baking rights: failed to parse json",
+				"failed to Get baking rights: failed to parse json",
 				[]rpc.BakingRights{},
 			},
 		},
@@ -89,7 +89,7 @@ func Test_CompletePrefix(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentLevel, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get current level",
+				"failed to Get current level",
 				rpc.CurrentLevel{},
 			},
 		},
@@ -98,7 +98,7 @@ func Test_CompletePrefix(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentLevel, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get current level: failed to parse json",
+				"failed to Get current level: failed to parse json",
 				rpc.CurrentLevel{},
 			},
 		},
@@ -149,7 +149,7 @@ func Test_EndorsingRights(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regEndorsingRights, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get endorsing rights",
+				"failed to Get endorsing rights",
 				[]rpc.EndorsingRights{},
 			},
 		},
@@ -158,7 +158,7 @@ func Test_EndorsingRights(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regEndorsingRights, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get endorsing rights: failed to parse json",
+				"failed to Get endorsing rights: failed to parse json",
 				[]rpc.EndorsingRights{},
 			},
 		},
@@ -423,7 +423,7 @@ func Test_LevelsInCurrentCycle(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regLevelsInCurrentCycle, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get levels in current cycle",
+				"failed to Get levels in current cycle",
 				rpc.LevelsInCurrentCycle{},
 			},
 		},
@@ -432,7 +432,7 @@ func Test_LevelsInCurrentCycle(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regLevelsInCurrentCycle, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get levels in current cycle: failed to parse json",
+				"failed to Get levels in current cycle: failed to parse json",
 				rpc.LevelsInCurrentCycle{},
 			},
 		},
@@ -869,7 +869,7 @@ func Test_Entrypoint(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regEntrypoint, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get entrypoint type:",
+				"failed to Get entrypoint type:",
 				rpc.Entrypoint{},
 			},
 		},
@@ -878,7 +878,7 @@ func Test_Entrypoint(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regEntrypoint, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get entrypoint type: failed to parse json",
+				"failed to Get entrypoint type: failed to parse json",
 				rpc.Entrypoint{},
 			},
 		},
@@ -935,7 +935,7 @@ func Test_Entrypoints(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regEntrypoints, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get entrypoints:",
+				"failed to Get entrypoints:",
 				rpc.Entrypoints{},
 			},
 		},
@@ -944,7 +944,7 @@ func Test_Entrypoints(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regEntrypoints, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get entrypoints: failed to parse json",
+				"failed to Get entrypoints: failed to parse json",
 				rpc.Entrypoints{},
 			},
 		},

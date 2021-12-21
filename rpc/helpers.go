@@ -111,18 +111,18 @@ RPC:
 func (c *Client) BakingRights(input BakingRightsInput) (*resty.Response, []BakingRights, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, []BakingRights{}, errors.Wrap(err, "failed to get baking rights: invalid input")
+		return nil, []BakingRights{}, errors.Wrap(err, "failed to Get baking rights: invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/baking_rights", c.chain, input.BlockID.ID()), input.contructRPCOptions()...)
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/baking_rights", c.chain, input.BlockID.ID()), input.contructRPCOptions()...)
 	if err != nil {
-		return resp, []BakingRights{}, errors.Wrapf(err, "failed to get baking rights")
+		return resp, []BakingRights{}, errors.Wrapf(err, "failed to Get baking rights")
 	}
 
 	var bakingRights []BakingRights
 	err = json.Unmarshal(resp.Body(), &bakingRights)
 	if err != nil {
-		return resp, []BakingRights{}, errors.Wrapf(err, "failed to get baking rights: failed to parse json")
+		return resp, []BakingRights{}, errors.Wrapf(err, "failed to Get baking rights: failed to parse json")
 	}
 
 	return resp, bakingRights, nil
@@ -156,7 +156,7 @@ func (c *Client) CompletePrefix(input CompletePrefixInput) (*resty.Response, []s
 		return nil, []string{}, errors.Wrap(err, "failed to complete prefix: invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/complete/%s", c.chain, input.BlockID.ID(), input.Prefix))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/complete/%s", c.chain, input.BlockID.ID(), input.Prefix))
 	if err != nil {
 		return resp, []string{}, errors.Wrapf(err, "failed to complete prefix")
 	}
@@ -229,18 +229,18 @@ RPC:
 func (c *Client) CurrentLevel(input CurrentLevelInput) (*resty.Response, CurrentLevel, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, CurrentLevel{}, errors.Wrap(err, "failed to get current level: invalid input")
+		return nil, CurrentLevel{}, errors.Wrap(err, "failed to Get current level: invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/current_level", c.chain, input.BlockID.ID()), input.constructRPCOptions()...)
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/current_level", c.chain, input.BlockID.ID()), input.constructRPCOptions()...)
 	if err != nil {
-		return resp, CurrentLevel{}, errors.Wrapf(err, "failed to get current level")
+		return resp, CurrentLevel{}, errors.Wrapf(err, "failed to Get current level")
 	}
 
 	var currentLevel CurrentLevel
 	err = json.Unmarshal(resp.Body(), &currentLevel)
 	if err != nil {
-		return resp, CurrentLevel{}, errors.Wrapf(err, "failed to get current level: failed to parse json")
+		return resp, CurrentLevel{}, errors.Wrapf(err, "failed to Get current level: failed to parse json")
 	}
 
 	return resp, currentLevel, nil
@@ -299,18 +299,18 @@ RPC:
 func (c *Client) EndorsingRights(input EndorsingRightsInput) (*resty.Response, []EndorsingRights, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, []EndorsingRights{}, errors.Wrap(err, "failed to get endorsing rightsL invalid input")
+		return nil, []EndorsingRights{}, errors.Wrap(err, "failed to Get endorsing rightsL invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/endorsing_rights", c.chain, input.BlockID.ID()), input.contructRPCOptions()...)
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/endorsing_rights", c.chain, input.BlockID.ID()), input.contructRPCOptions()...)
 	if err != nil {
-		return resp, []EndorsingRights{}, errors.Wrap(err, "failed to get endorsing rights")
+		return resp, []EndorsingRights{}, errors.Wrap(err, "failed to Get endorsing rights")
 	}
 
 	var endorsingRights []EndorsingRights
 	err = json.Unmarshal(resp.Body(), &endorsingRights)
 	if err != nil {
-		return resp, []EndorsingRights{}, errors.Wrapf(err, "failed to get endorsing rights: failed to parse json")
+		return resp, []EndorsingRights{}, errors.Wrapf(err, "failed to Get endorsing rights: failed to parse json")
 	}
 
 	return resp, endorsingRights, nil
@@ -387,7 +387,7 @@ func (c *Client) ForgeOperations(input ForgeOperationsInput) (*resty.Response, s
 		return nil, "", errors.Wrap(err, "failed to forge operation")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/forge/operations", c.chain, input.BlockIDHash.ID()), v)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/forge/operations", c.chain, input.BlockIDHash.ID()), v)
 	if err != nil {
 		return resp, "", errors.Wrap(err, "failed to forge operation")
 	}
@@ -495,7 +495,7 @@ func (c *Client) ForgeBlockHeader(input ForgeBlockHeaderInput) (*resty.Response,
 		return nil, ForgeBlockHeader{}, errors.Wrap(err, "failed to forge block header: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/forge_block_header", c.chain, input.BlockID.ID()), input.BlockHeader)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/forge_block_header", c.chain, input.BlockID.ID()), input.BlockHeader)
 	if err != nil {
 		return resp, ForgeBlockHeader{}, errors.Wrap(err, "failed to forge block header")
 	}
@@ -544,18 +544,18 @@ RPC:
 func (c *Client) LevelsInCurrentCycle(input LevelsInCurrentCycleInput) (*resty.Response, LevelsInCurrentCycle, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, LevelsInCurrentCycle{}, errors.Wrap(err, "failed to get levels in current cycle: invalid input")
+		return nil, LevelsInCurrentCycle{}, errors.Wrap(err, "failed to Get levels in current cycle: invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/levels_in_current_cycle", c.chain, input.BlockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/levels_in_current_cycle", c.chain, input.BlockID.ID()))
 	if err != nil {
-		return resp, LevelsInCurrentCycle{}, errors.Wrap(err, "failed to get levels in current cycle")
+		return resp, LevelsInCurrentCycle{}, errors.Wrap(err, "failed to Get levels in current cycle")
 	}
 
 	var levelsInCurrentCycle LevelsInCurrentCycle
 	err = json.Unmarshal(resp.Body(), &levelsInCurrentCycle)
 	if err != nil {
-		return resp, LevelsInCurrentCycle{}, errors.Wrap(err, "failed to get levels in current cycle: failed to parse json")
+		return resp, LevelsInCurrentCycle{}, errors.Wrap(err, "failed to Get levels in current cycle: failed to parse json")
 	}
 
 	return resp, levelsInCurrentCycle, nil
@@ -601,7 +601,7 @@ func (c *Client) ParseBlock(input ParseBlockInput) (*resty.Response, BlockHeader
 		return nil, BlockHeaderSignedContents{}, errors.Wrap(err, "failed to parse block: invalid input")
 	}
 
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/parse/block", c.chain, input.BlockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/helpers/parse/block", c.chain, input.BlockID.ID()))
 	if err != nil {
 		return resp, BlockHeaderSignedContents{}, errors.Wrap(err, "failed to parse block")
 	}
@@ -663,7 +663,7 @@ func (c *Client) ParseOperations(input ParseOperationsInput) (*resty.Response, [
 		input.CheckSignature,
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/parse/operations", c.chain, input.BlockID.ID()), operations)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/parse/operations", c.chain, input.BlockID.ID()), operations)
 	if err != nil {
 		return resp, []Operations{}, errors.Wrap(err, "failed to parse operations")
 	}
@@ -788,7 +788,7 @@ func (c *Client) PreapplyBlock(input PreapplyBlockInput) (*resty.Response, Preap
 		return nil, PreappliedBlock{}, errors.Wrap(err, "failed to preapply block: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/preapply/block", c.chain, input.BlockID.ID()), input.Block, input.constructRPCOptions()...)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/preapply/block", c.chain, input.BlockID.ID()), input.Block, input.constructRPCOptions()...)
 	if err != nil {
 		return resp, PreappliedBlock{}, errors.Wrap(err, "failed to preapply block")
 	}
@@ -830,7 +830,7 @@ func (c *Client) PreapplyOperations(input PreapplyOperationsInput) (*resty.Respo
 		return nil, nil, errors.Wrap(err, "failed to preapply operations: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/preapply/operations", c.chain, input.BlockID.ID()), input.Operations)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/preapply/operations", c.chain, input.BlockID.ID()), input.Operations)
 	if err != nil {
 		return resp, nil, errors.Wrap(err, "failed to preapply operations")
 	}
@@ -853,7 +853,7 @@ RPC:
 type EntrypointInput struct {
 	// The block (height) of which you want to make the query.
 	BlockID BlockID `validate:"required"`
-	// The entrypoint to get the type of
+	// The entrypoint to Get the type of
 	Entrypoint EntrypointBody `validate:"required"`
 }
 
@@ -890,18 +890,18 @@ RPC:
 func (c *Client) Entrypoint(input EntrypointInput) (*resty.Response, Entrypoint, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, Entrypoint{}, errors.Wrap(err, "failed to get entrypoint type: invalid input")
+		return nil, Entrypoint{}, errors.Wrap(err, "failed to Get entrypoint type: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/entrypoint", c.chain, input.BlockID.ID()), input.Entrypoint)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/entrypoint", c.chain, input.BlockID.ID()), input.Entrypoint)
 	if err != nil {
-		return resp, Entrypoint{}, errors.Wrap(err, "failed to get entrypoint type")
+		return resp, Entrypoint{}, errors.Wrap(err, "failed to Get entrypoint type")
 	}
 
 	var entrypoint Entrypoint
 	err = json.Unmarshal(resp.Body(), &entrypoint)
 	if err != nil {
-		return resp, Entrypoint{}, errors.Wrap(err, "failed to get entrypoint type: failed to parse json")
+		return resp, Entrypoint{}, errors.Wrap(err, "failed to Get entrypoint type: failed to parse json")
 	}
 
 	return resp, entrypoint, nil
@@ -916,7 +916,7 @@ RPC:
 type EntrypointsInput struct {
 	// The block (height) of which you want to make the query.
 	BlockID BlockID `validate:"required"`
-	// The script to get the entrypoints for
+	// The script to Get the entrypoints for
 	Entrypoints EntrypointsBody `validate:"required"`
 }
 
@@ -963,18 +963,18 @@ RPC:
 func (c *Client) Entrypoints(input EntrypointsInput) (*resty.Response, Entrypoints, error) {
 	err := validator.New().Struct(input)
 	if err != nil {
-		return nil, Entrypoints{}, errors.Wrap(err, "failed to get entrypoints: invalid input")
+		return nil, Entrypoints{}, errors.Wrap(err, "failed to Get entrypoints: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/entrypoints", c.chain, input.BlockID.ID()), input.Entrypoints)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/entrypoints", c.chain, input.BlockID.ID()), input.Entrypoints)
 	if err != nil {
-		return resp, Entrypoints{}, errors.Wrap(err, "failed to get entrypoints")
+		return resp, Entrypoints{}, errors.Wrap(err, "failed to Get entrypoints")
 	}
 
 	var entrypoints Entrypoints
 	err = json.Unmarshal(resp.Body(), &entrypoints)
 	if err != nil {
-		return resp, Entrypoints{}, errors.Wrap(err, "failed to get entrypoints: failed to parse json")
+		return resp, Entrypoints{}, errors.Wrap(err, "failed to Get entrypoints: failed to parse json")
 	}
 
 	return resp, entrypoints, nil
@@ -1031,7 +1031,7 @@ func (c *Client) PackData(input PackDataInput) (*resty.Response, PackedData, err
 		return nil, PackedData{}, errors.Wrap(err, "failed to pack data: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/pack_data", c.chain, input.BlockID.ID()), input.Data)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/pack_data", c.chain, input.BlockID.ID()), input.Data)
 	if err != nil {
 		return resp, PackedData{}, errors.Wrap(err, "failed to pack data")
 	}
@@ -1104,7 +1104,7 @@ func (c *Client) RunCode(input RunCodeInput) (*resty.Response, RanCode, error) {
 		return nil, RanCode{}, errors.Wrap(err, "failed to run code: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/run_code", c.chain, input.BlockID.ID()), input.Code)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/run_code", c.chain, input.BlockID.ID()), input.Code)
 	if err != nil {
 		return resp, RanCode{}, errors.Wrap(err, "failed to run code")
 	}
@@ -1157,7 +1157,7 @@ func (c *Client) RunOperation(input RunOperationInput) (*resty.Response, Operati
 		return nil, Operations{}, errors.Wrap(err, "failed to run operation: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/run_operation", c.chain, input.BlockID.ID()), input.Operation)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/run_operation", c.chain, input.BlockID.ID()), input.Operation)
 	if err != nil {
 		return resp, input.Operation.Operation, errors.Wrapf(err, "failed to run operation")
 	}
@@ -1233,7 +1233,7 @@ func (c *Client) TraceCode(input TraceCodeInput) (*resty.Response, TracedCode, e
 		return nil, TracedCode{}, errors.Wrap(err, "failed to trace code: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/trace_code", c.chain, input.BlockID.ID()), input.Code)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/trace_code", c.chain, input.BlockID.ID()), input.Code)
 	if err != nil {
 		return resp, TracedCode{}, errors.Wrapf(err, "failed to trace code")
 	}
@@ -1302,7 +1302,7 @@ func (c *Client) TypecheckCode(input TypeCheckcodeInput) (*resty.Response, Typec
 		return nil, TypecheckedCode{}, errors.Wrap(err, "failed to typecheck code: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/typecheck_code", c.chain, input.BlockID.ID()), input.Code)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/typecheck_code", c.chain, input.BlockID.ID()), input.Code)
 	if err != nil {
 		return resp, TypecheckedCode{}, errors.Wrapf(err, "failed to typecheck code")
 	}
@@ -1367,7 +1367,7 @@ func (c *Client) TypecheckData(input TypecheckDataInput) (*resty.Response, Typec
 		return nil, TypecheckedData{}, errors.Wrap(err, "failed to typecheck data: invalid input")
 	}
 
-	resp, err := c.post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/typecheck_data", c.chain, input.BlockID.ID()), input.Data)
+	resp, err := c.Post(fmt.Sprintf("/chains/%s/blocks/%s/helpers/scripts/typecheck_data", c.chain, input.BlockID.ID()), input.Data)
 	if err != nil {
 		return resp, TypecheckedData{}, errors.Wrapf(err, "failed to typecheck data")
 	}

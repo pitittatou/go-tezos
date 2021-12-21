@@ -30,15 +30,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-ballot-list
 */
 func (c *Client) BallotList(blockID BlockID) (*resty.Response, BallotList, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/ballot_list", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/ballot_list", c.chain, blockID.ID()))
 	if err != nil {
-		return nil, BallotList{}, errors.Wrapf(err, "failed to get ballot list")
+		return nil, BallotList{}, errors.Wrapf(err, "failed to Get ballot list")
 	}
 
 	var ballotList BallotList
 	err = json.Unmarshal(resp.Body(), &ballotList)
 	if err != nil {
-		return resp, BallotList{}, errors.Wrapf(err, "failed to get ballot list: failed to parse json")
+		return resp, BallotList{}, errors.Wrapf(err, "failed to Get ballot list: failed to parse json")
 	}
 
 	return resp, ballotList, nil
@@ -66,15 +66,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-ballots
 */
 func (c *Client) Ballots(blockID BlockID) (*resty.Response, Ballots, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/ballots", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/ballots", c.chain, blockID.ID()))
 	if err != nil {
-		return nil, Ballots{}, errors.Wrapf(err, "failed to get ballots")
+		return nil, Ballots{}, errors.Wrapf(err, "failed to Get ballots")
 	}
 
 	var ballots Ballots
 	err = json.Unmarshal(resp.Body(), &ballots)
 	if err != nil {
-		return resp, Ballots{}, errors.Wrapf(err, "failed to get ballots: failed to parse json")
+		return resp, Ballots{}, errors.Wrapf(err, "failed to Get ballots: failed to parse json")
 	}
 
 	return resp, ballots, nil
@@ -109,15 +109,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-current-period
 */
 func (c *Client) CurrentPeriod(blockID BlockID) (*resty.Response, VotingPeriod, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/current_period", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/current_period", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, VotingPeriod{}, errors.Wrapf(err, "failed to get current period")
+		return resp, VotingPeriod{}, errors.Wrapf(err, "failed to Get current period")
 	}
 
 	var currentPeriod VotingPeriod
 	err = json.Unmarshal(resp.Body(), &currentPeriod)
 	if err != nil {
-		return resp, VotingPeriod{}, errors.Wrapf(err, "failed to get current period: failed to parse json")
+		return resp, VotingPeriod{}, errors.Wrapf(err, "failed to Get current period: failed to parse json")
 	}
 
 	return resp, currentPeriod, nil
@@ -133,15 +133,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-current-period-kind
 */
 func (c *Client) CurrentPeriodKind(blockID BlockID) (*resty.Response, string, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/current_period_kind", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/current_period_kind", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get current period kind")
+		return resp, "", errors.Wrapf(err, "failed to Get current period kind")
 	}
 
 	var currentPeriodKind string
 	err = json.Unmarshal(resp.Body(), &currentPeriodKind)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get current period kind: failed to parse json")
+		return resp, "", errors.Wrapf(err, "failed to Get current period kind: failed to parse json")
 	}
 
 	return resp, currentPeriodKind, nil
@@ -157,15 +157,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-current-proposal
 */
 func (c *Client) CurrentProposal(blockID BlockID) (*resty.Response, string, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/current_proposal", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/current_proposal", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get current proposal")
+		return resp, "", errors.Wrapf(err, "failed to Get current proposal")
 	}
 
 	var currentProposal string
 	err = json.Unmarshal(resp.Body(), &currentProposal)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get current proposal: failed to parse json")
+		return resp, "", errors.Wrapf(err, "failed to Get current proposal: failed to parse json")
 	}
 
 	return resp, currentProposal, nil
@@ -181,15 +181,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-current-quorum
 */
 func (c *Client) CurrentQuorum(blockID BlockID) (*resty.Response, int, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/current_quorum", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/current_quorum", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get current quorum")
+		return resp, 0, errors.Wrapf(err, "failed to Get current quorum")
 	}
 
 	var currentQuorum int
 	err = json.Unmarshal(resp.Body(), &currentQuorum)
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get current quorum: failed to parse json")
+		return resp, 0, errors.Wrapf(err, "failed to Get current quorum: failed to parse json")
 	}
 
 	return resp, currentQuorum, nil
@@ -216,15 +216,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-listings
 */
 func (c *Client) Listings(blockID BlockID) (*resty.Response, Listings, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/listings", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/listings", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, Listings{}, errors.Wrapf(err, "failed to get listings")
+		return resp, Listings{}, errors.Wrapf(err, "failed to Get listings")
 	}
 
 	var listings Listings
 	err = json.Unmarshal(resp.Body(), &listings)
 	if err != nil {
-		return resp, Listings{}, errors.Wrapf(err, "failed to get listings: failed to parse json")
+		return resp, Listings{}, errors.Wrapf(err, "failed to Get listings: failed to parse json")
 	}
 
 	return resp, listings, nil
@@ -284,15 +284,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-proposals
 */
 func (c *Client) Proposals(blockID BlockID) (*resty.Response, Proposals, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/proposals", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/proposals", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, Proposals{}, errors.Wrapf(err, "failed to get proposals")
+		return resp, Proposals{}, errors.Wrapf(err, "failed to Get proposals")
 	}
 
 	var proposals Proposals
 	err = json.Unmarshal(resp.Body(), &proposals)
 	if err != nil {
-		return resp, Proposals{}, errors.Wrapf(err, "failed to get proposals: failed to parse json")
+		return resp, Proposals{}, errors.Wrapf(err, "failed to Get proposals: failed to parse json")
 	}
 
 	return resp, proposals, nil
@@ -308,15 +308,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-successor-period
 */
 func (c *Client) SuccessorPeriod(blockID BlockID) (*resty.Response, VotingPeriod, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/proposals", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/proposals", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, VotingPeriod{}, errors.Wrapf(err, "failed to get successor period")
+		return resp, VotingPeriod{}, errors.Wrapf(err, "failed to Get successor period")
 	}
 
 	var votingPeriod VotingPeriod
 	err = json.Unmarshal(resp.Body(), &votingPeriod)
 	if err != nil {
-		return resp, VotingPeriod{}, errors.Wrapf(err, "failed to get successor period: failed to parse json")
+		return resp, VotingPeriod{}, errors.Wrapf(err, "failed to Get successor period: failed to parse json")
 	}
 
 	return resp, votingPeriod, nil
@@ -332,15 +332,15 @@ RPC:
 	https://tezos.gitlab.io/008/rpc.html#get-block-id-votes-total-voting-power
 */
 func (c *Client) TotalVotingPower(blockID BlockID) (*resty.Response, int, error) {
-	resp, err := c.get(fmt.Sprintf("/chains/%s/blocks/%s/votes/total_voting_power", c.chain, blockID.ID()))
+	resp, err := c.Get(fmt.Sprintf("/chains/%s/blocks/%s/votes/total_voting_power", c.chain, blockID.ID()))
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get total voting power")
+		return resp, 0, errors.Wrapf(err, "failed to Get total voting power")
 	}
 
 	var votingPower int
 	err = json.Unmarshal(resp.Body(), &votingPower)
 	if err != nil {
-		return resp, 0, errors.Wrapf(err, "failed to get total voting power: failed to parse json")
+		return resp, 0, errors.Wrapf(err, "failed to Get total voting power: failed to parse json")
 	}
 
 	return resp, votingPower, nil

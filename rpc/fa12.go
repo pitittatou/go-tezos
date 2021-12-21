@@ -18,7 +18,7 @@ Function:
 type GetFA12BalanceInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided Blockhash is required.
+	// The cycle to Get the balance at. If not provided Blockhash is required.
 	Cycle int
 	// ChainID is the Chain ID of the chain you want to query
 	ChainID string `validate:"required"`
@@ -26,7 +26,7 @@ type GetFA12BalanceInput struct {
 	Source string `validate:"required"`
 	// FA12Contract address of the FA1.2 Contract you wish to query.
 	FA12Contract string `validate:"required"`
-	// OwnerAddress is the address to get the balance for in the FA1.2 contract
+	// OwnerAddress is the address to Get the balance for in the FA1.2 contract
 	OwnerAddress string `validate:"required"`
 	// If true the function will use an intermediate contract deployed on Carthagenet, default mainnet.
 	Testnet bool
@@ -43,7 +43,7 @@ Function:
 type GetFA12SupplyInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided Blockhash is required.
+	// The cycle to Get the balance at. If not provided Blockhash is required.
 	Cycle int
 	// ChainID is the Chain ID of the chain you want to query
 	ChainID string `validate:"required"`
@@ -66,7 +66,7 @@ Function:
 type GetFA12AllowanceInput struct {
 	// The block of which you want to make the query. If not provided Cycle is required.
 	BlockID BlockID
-	// The cycle to get the balance at. If not provided Blockhash is required.
+	// The cycle to Get the balance at. If not provided Blockhash is required.
 	Cycle int
 	// ChainID is the Chain ID of the chain you want to query
 	ChainID string `validate:"required"`
@@ -74,7 +74,7 @@ type GetFA12AllowanceInput struct {
 	Source string `validate:"required"`
 	// FA12Contract address of the FA1.2 Contract you wish to query.
 	FA12Contract string `validate:"required"`
-	// OwnerAddress is the address to get the balance for in the FA1.2 contract
+	// OwnerAddress is the address to Get the balance for in the FA1.2 contract
 	OwnerAddress string `validate:"required"`
 	// SpenderAddress is the address to check an allowance for on behalf of an owner
 	SpenderAddress string `validate:"required"`
@@ -189,8 +189,8 @@ func parseAllowance(operation Operations) (string, error) {
 }
 
 /*
-GetFA12Balance is a helper function to get the balance of a participant in an FA1.2 contracts.
-There isn't really a good way to get the balance naturally because the FA1.2 contract entrypoints
+GetFA12Balance is a helper function to Get the balance of a participant in an FA1.2 contracts.
+There isn't really a good way to Get the balance naturally because the FA1.2 contract entrypoints
 are meant to be called from another contract. As a result of this this function will run an operation
 that calls an intermediary contract which calls the FA1.2 contract and parses the result.
 
@@ -199,7 +199,7 @@ See: https://gitlab.com/camlcase-dev/dexter-integration/-/blob/master/call_fa1.2
 func (c *Client) GetFA12Balance(input GetFA12BalanceInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "", errors.Wrapf(err, "failed to get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
+		return resp, "", errors.Wrapf(err, "failed to Get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
 	}
 
 	resp, counter, err := c.ContractCounter(ContractCounterInput{
@@ -207,7 +207,7 @@ func (c *Client) GetFA12Balance(input GetFA12BalanceInput) (*resty.Response, str
 		ContractID: input.Source,
 	})
 	if err != nil {
-		return resp, "0", errors.Wrapf(err, "failed to get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
+		return resp, "0", errors.Wrapf(err, "failed to Get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
 	}
 	counter++
 
@@ -248,20 +248,20 @@ func (c *Client) GetFA12Balance(input GetFA12BalanceInput) (*resty.Response, str
 		},
 	})
 	if err != nil {
-		return resp, "0", errors.Wrapf(err, "failed to get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
+		return resp, "0", errors.Wrapf(err, "failed to Get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
 	}
 
 	balance, err := parseBalance(operation)
 	if err != nil {
-		return resp, "0", errors.Wrapf(err, "failed to get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
+		return resp, "0", errors.Wrapf(err, "failed to Get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
 	}
 
 	return resp, balance, nil
 }
 
 /*
-GetFA12Supply is a helper function to get the total supply of an FA1.2 contract.
-There isn't really a good way to get the supply naturally because the FA1.2 contract entrypoints
+GetFA12Supply is a helper function to Get the total supply of an FA1.2 contract.
+There isn't really a good way to Get the supply naturally because the FA1.2 contract entrypoints
 are meant to be called from another contract. As a result of this this function will run an operation
 that calls an intermediary contract which calls the FA1.2 contract and parses the result.
 
@@ -272,7 +272,7 @@ See: https://gitlab.com/camlcase-dev/dexter-integration/-/blob/master/call_fa1.2
 func (c *Client) GetFA12Supply(input GetFA12SupplyInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "0", errors.Wrapf(err, "failed to get fa1.2 supply for contract '%s'", input.FA12Contract)
+		return resp, "0", errors.Wrapf(err, "failed to Get fa1.2 supply for contract '%s'", input.FA12Contract)
 	}
 
 	resp, counter, err := c.ContractCounter(ContractCounterInput{
@@ -330,8 +330,8 @@ func (c *Client) GetFA12Supply(input GetFA12SupplyInput) (*resty.Response, strin
 }
 
 /*
-GetFA12Allowance is a helper function to get the allowance of an FA1.2 contract.
-There isn't really a good way to get the allowance naturally because the FA1.2 contract entrypoints
+GetFA12Allowance is a helper function to Get the allowance of an FA1.2 contract.
+There isn't really a good way to Get the allowance naturally because the FA1.2 contract entrypoints
 are meant to be called from another contract. As a result of this this function will run an operation
 that calls an intermediary contract which calls the FA1.2 contract and parses the result.
 
@@ -340,7 +340,7 @@ See: https://gitlab.com/camlcase-dev/dexter-integration/-/blob/master/call_fa1.2
 func (c *Client) GetFA12Allowance(input GetFA12AllowanceInput) (*resty.Response, string, error) {
 	resp, blockID, err := c.processContextRequest(input, input.Cycle, input.BlockID)
 	if err != nil {
-		return resp, "0", errors.Wrapf(err, "failed to get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
+		return resp, "0", errors.Wrapf(err, "failed to Get fa1.2 balance for '%s' in contract '%s'", input.OwnerAddress, input.FA12Contract)
 	}
 
 	resp, counter, err := c.ContractCounter(ContractCounterInput{

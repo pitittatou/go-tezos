@@ -26,7 +26,7 @@ func Test_BigMap(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regBigMap, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get big map",
+				"failed to Get big map",
 				nil,
 			},
 		},
@@ -84,7 +84,7 @@ func Test_Constants(t *testing.T) {
 			gtGoldenHTTPMock(newConstantsMock().handler(readResponse(rpcerrors), blankHandler)),
 			want{
 				true,
-				"failed to get constants",
+				"failed to Get constants",
 				rpc.Constants{},
 			},
 		},
@@ -93,7 +93,7 @@ func Test_Constants(t *testing.T) {
 			gtGoldenHTTPMock(newConstantsMock().handler([]byte(`junk`), blankHandler)),
 			want{
 				true,
-				"failed to get constants: failed to parse json",
+				"failed to Get constants: failed to parse json",
 				rpc.Constants{},
 			},
 		},
@@ -141,7 +141,7 @@ func Test_Contracts(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContracts, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get contracts",
+				"failed to Get contracts",
 				[]string{},
 			},
 		},
@@ -150,7 +150,7 @@ func Test_Contracts(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContracts, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get contracts: failed to parse json",
+				"failed to Get contracts: failed to parse json",
 				[]string{},
 			},
 		},
@@ -206,7 +206,7 @@ func Test_Contract(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContract, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf'",
+				"failed to Get contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf'",
 				rpc.Contract{},
 			},
 		},
@@ -215,7 +215,7 @@ func Test_Contract(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContract, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf': failed to parse json",
+				"failed to Get contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf': failed to parse json",
 				rpc.Contract{},
 			},
 		},
@@ -266,7 +266,7 @@ func Test_ContractBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractBalance, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get balance for contract 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ'",
+				"failed to Get balance for contract 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ'",
 				"",
 			},
 		},
@@ -275,7 +275,7 @@ func Test_ContractBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractBalance, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get balance for contract 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ': failed to parse json",
+				"failed to Get balance for contract 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ': failed to parse json",
 				"",
 			},
 		},
@@ -325,7 +325,7 @@ func Test_ContractCounter(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractCounter, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get counter for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc'",
+				"failed to Get counter for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc'",
 				0,
 			},
 		},
@@ -334,7 +334,7 @@ func Test_ContractCounter(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractCounter, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get counter for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
+				"failed to Get counter for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
 				0,
 			},
 		},
@@ -384,7 +384,7 @@ func Test_ContractDelegate(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractDelegate, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc'",
+				"failed to Get delegate for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc'",
 				"",
 			},
 		},
@@ -393,7 +393,7 @@ func Test_ContractDelegate(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractDelegate, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
+				"failed to Get delegate for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
 				"",
 			},
 		},
@@ -443,7 +443,7 @@ func Test_ContractEntrypoints(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractEntrypoints, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get entrypoints for contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf'",
+				"failed to Get entrypoints for contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf'",
 				map[string]struct{}{},
 			},
 		},
@@ -452,7 +452,7 @@ func Test_ContractEntrypoints(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractEntrypoints, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get entrypoints for contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf': failed to parse json",
+				"failed to Get entrypoints for contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf': failed to parse json",
 				map[string]struct{}{},
 			},
 		},
@@ -517,7 +517,7 @@ func Test_ContractEntrypoint(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractEntrypoint, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get entrypoint 'xtzToToken' for contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf'",
+				"failed to Get entrypoint 'xtzToToken' for contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf'",
 			},
 		},
 		{
@@ -565,7 +565,7 @@ func Test_ContractManagerKey(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractManagerKey, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get manager for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc'",
+				"failed to Get manager for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc'",
 				"",
 			},
 		},
@@ -574,7 +574,7 @@ func Test_ContractManagerKey(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractManagerKey, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get manager for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
+				"failed to Get manager for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
 				"",
 			},
 		},
@@ -623,7 +623,7 @@ func Test_ContractScript(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractScript, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get script for contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf'",
+				"failed to Get script for contract 'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf'",
 			},
 		},
 		{
@@ -653,7 +653,7 @@ func Test_ContractScript(t *testing.T) {
 	}
 }
 
-//TODO: There's not a public sapling resource to test against to get mock data
+//TODO: There's not a public sapling resource to test against to Get mock data
 // func Test_ContractSaplingDiff(t *testing.T) {
 // 	type want struct {
 // 		err         bool
@@ -671,7 +671,7 @@ func Test_ContractScript(t *testing.T) {
 // 			gtGoldenHTTPMock(contractDelegateHandlerMock(readResponse(rpcerrors), blankHandler)),
 // 			want{
 // 				true,
-// 				"failed to get delegate for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc'",
+// 				"failed to Get delegate for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc'",
 // 				"",
 // 			},
 // 		},
@@ -680,7 +680,7 @@ func Test_ContractScript(t *testing.T) {
 // 			gtGoldenHTTPMock(contractDelegateHandlerMock([]byte(`bad_data`), blankHandler)),
 // 			want{
 // 				true,
-// 				"failed to get delegate for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
+// 				"failed to Get delegate for contract 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
 // 				"",
 // 			},
 // 		},
@@ -773,7 +773,7 @@ func Test_ContractStorage(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regContractStorage, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get storage for contract",
+				"failed to Get storage for contract",
 				nil,
 			},
 		},
@@ -806,7 +806,7 @@ func Test_ContractStorage(t *testing.T) {
 				body = result.Body()
 			}
 
-			// The resp will contain an RPC err, we just care that we get type err
+			// The resp will contain an RPC err, we just care that we Get type err
 			if tt.name == "handles rpc failure" {
 				body = nil
 			}
@@ -836,7 +836,7 @@ func Test_Delegates(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegates, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegates",
+				"failed to Get delegates",
 				[]string{},
 			},
 		},
@@ -845,7 +845,7 @@ func Test_Delegates(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegates, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegates: failed to parse json",
+				"failed to Get delegates: failed to parse json",
 				[]string{},
 			},
 		},
@@ -897,7 +897,7 @@ func Test_Delegate(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegate, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate",
+				"failed to Get delegate",
 				rpc.Delegate{},
 			},
 		},
@@ -906,7 +906,7 @@ func Test_Delegate(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegate, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
+				"failed to Get delegate 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc': failed to parse json",
 				rpc.Delegate{},
 			},
 		},
@@ -956,7 +956,7 @@ func Test_DelegateBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateBalance, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' balance",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' balance",
 				"",
 			},
 		},
@@ -965,7 +965,7 @@ func Test_DelegateBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateBalance, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' balance: failed to parse json",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' balance: failed to parse json",
 				"",
 			},
 		},
@@ -1015,7 +1015,7 @@ func Test_DelegateDeactivated(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateDeactivated, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' activation status",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' activation status",
 				false,
 			},
 		},
@@ -1024,7 +1024,7 @@ func Test_DelegateDeactivated(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateDeactivated, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' activation status: failed to parse json",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' activation status: failed to parse json",
 				false,
 			},
 		},
@@ -1074,7 +1074,7 @@ func Test_DelegateDelegatedBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateDelegatedBalance, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' delegated balance",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' delegated balance",
 				"",
 			},
 		},
@@ -1083,7 +1083,7 @@ func Test_DelegateDelegatedBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateDelegatedBalance, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' delegated balance: failed to parse json",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' delegated balance: failed to parse json",
 				"",
 			},
 		},
@@ -1135,7 +1135,7 @@ func Test_DelegateDelegatedContracts(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateDelegatedContracts, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc' delegated contracts",
+				"failed to Get delegate 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc' delegated contracts",
 				[]string{},
 			},
 		},
@@ -1144,7 +1144,7 @@ func Test_DelegateDelegatedContracts(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateDelegatedContracts, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc' delegated contracts: failed to parse json",
+				"failed to Get delegate 'tz1SUgyRB8T5jXgXAwS33pgRHAKrafyg87Yc' delegated contracts: failed to parse json",
 				[]string{},
 			},
 		},
@@ -1194,7 +1194,7 @@ func Test_DelegateFrozenBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateFrozenBalance, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' frozen balance",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' frozen balance",
 				"",
 			},
 		},
@@ -1203,7 +1203,7 @@ func Test_DelegateFrozenBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateFrozenBalance, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' frozen balance: failed to parse json",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' frozen balance: failed to parse json",
 				"",
 			},
 		},
@@ -1255,7 +1255,7 @@ func Test_DelegateFrozenBalanceBalanceAtCycle(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateFrozenBalanceByCycle, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' frozen balance at cycle",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' frozen balance at cycle",
 				[]rpc.FrozenBalanceByCycle{},
 			},
 		},
@@ -1264,7 +1264,7 @@ func Test_DelegateFrozenBalanceBalanceAtCycle(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateFrozenBalanceByCycle, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' frozen balance at cycle: failed to parse json",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' frozen balance at cycle: failed to parse json",
 				[]rpc.FrozenBalanceByCycle{},
 			},
 		},
@@ -1314,7 +1314,7 @@ func Test_DelegateGracePeriod(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateGracePeriod, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' grace period",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' grace period",
 				0,
 			},
 		},
@@ -1323,7 +1323,7 @@ func Test_DelegateGracePeriod(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateGracePeriod, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' grace period: failed to parse json",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' grace period: failed to parse json",
 				0,
 			},
 		},
@@ -1373,7 +1373,7 @@ func Test_DelegateStakingBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateStakingBalance, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' staking balance",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' staking balance",
 				"",
 			},
 		},
@@ -1382,7 +1382,7 @@ func Test_DelegateStakingBalance(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateStakingBalance, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' staking balance: failed to parse json",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' staking balance: failed to parse json",
 				"",
 			},
 		},
@@ -1432,7 +1432,7 @@ func Test_DelegateVotingPower(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateVotingPower, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' voting power",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' voting power",
 				0,
 			},
 		},
@@ -1441,7 +1441,7 @@ func Test_DelegateVotingPower(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regDelegateVotingPower, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' voting power: failed to parse json",
+				"failed to Get delegate 'tz1U8sXoQWGUMQrfZeAYwAzMZUvWwy7mfpPQ' voting power: failed to parse json",
 				0,
 			},
 		},
@@ -1491,7 +1491,7 @@ func Test_Nonces(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regNonces, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get nonces at level '1000000'",
+				"failed to Get nonces at level '1000000'",
 				rpc.Nonces{},
 			},
 		},
@@ -1500,7 +1500,7 @@ func Test_Nonces(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regNonces, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get nonces at level '1000000': failed to parse json",
+				"failed to Get nonces at level '1000000': failed to parse json",
 				rpc.Nonces{},
 			},
 		},
@@ -1574,7 +1574,7 @@ func Test_RawBytes(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regRawBytes, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get raw bytes",
+				"failed to Get raw bytes",
 				nil,
 			},
 		},
@@ -1607,7 +1607,7 @@ func Test_RawBytes(t *testing.T) {
 				body = result.Body()
 			}
 
-			// The resp will contain an RPC err, we just care that we get type err
+			// The resp will contain an RPC err, we just care that we Get type err
 			if tt.name == "handles rpc failure" {
 				body = nil
 			}
@@ -1633,7 +1633,7 @@ func Test_Seed(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regSeed, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get seed",
+				"failed to Get seed",
 				"",
 			},
 		},
@@ -1642,7 +1642,7 @@ func Test_Seed(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regSeed, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get seed: failed to parse json",
+				"failed to Get seed: failed to parse json",
 				"",
 			},
 		},
@@ -1692,19 +1692,19 @@ func Test_Cycle(t *testing.T) {
 		want  want
 	}{
 		{
-			"failed to get head block",
+			"failed to Get head block",
 			input{
 				gtGoldenHTTPMock(newBlockMock().handler([]byte(`not_block_data`), blankHandler)),
 				10,
 			},
 			want{
 				true,
-				"failed to get cycle '10': failed to get block 'head': failed to parse json",
+				"failed to Get cycle '10': failed to Get block 'head': failed to parse json",
 				rpc.Cycle{},
 			},
 		},
 		{
-			"failed to get cycle because cycle is in the future",
+			"failed to Get cycle because cycle is in the future",
 			input{
 				gtGoldenHTTPMock(newBlockMock().handler(readResponse(block), blankHandler)),
 				300,
@@ -1716,7 +1716,7 @@ func Test_Cycle(t *testing.T) {
 			},
 		},
 		{
-			"failed to get block less than cycle",
+			"failed to Get block less than cycle",
 			input{
 				gtGoldenHTTPMock(
 					newBlockMock().handler(
@@ -1731,7 +1731,7 @@ func Test_Cycle(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get cycle '2': failed to get block '8193': failed to parse json",
+				"failed to Get cycle '2': failed to Get block '8193': failed to parse json",
 				rpc.Cycle{},
 			},
 		},
@@ -1754,12 +1754,12 @@ func Test_Cycle(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get cycle '2': failed to get cycle at hash 'BLBL72xDLHf4ffKu8NZhYnqy21DECDkZ3Vpjw7oZJDhbgySzwFT': failed to parse json",
+				"failed to Get cycle '2': failed to Get cycle at hash 'BLBL72xDLHf4ffKu8NZhYnqy21DECDkZ3Vpjw7oZJDhbgySzwFT': failed to parse json",
 				rpc.Cycle{},
 			},
 		},
 		{
-			"failed to get cycle block level",
+			"failed to Get cycle block level",
 			input{
 				gtGoldenHTTPMock(
 					cycleHandlerMock(
@@ -1780,7 +1780,7 @@ func Test_Cycle(t *testing.T) {
 			},
 			want{
 				true,
-				"failed to get cycle '2': failed to get block '1': failed to parse json",
+				"failed to Get cycle '2': failed to Get block '1': failed to parse json",
 				rpc.Cycle{
 					LastRoll:     []string{},
 					Nonces:       []string{},

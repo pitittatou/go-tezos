@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 package rpc_test
@@ -15,13 +16,13 @@ const HOST = "https://mainnet-tezos.giganode.io"
 
 func getRandomBlock(r *rpc.Client, from int, t *testing.T) *rpc.Block {
 	_, head, err := r.Block(&rpc.BlockIDHead{})
-	if ok := assert.Nil(t, err, "Random block generator failed to get current network height"); !ok {
+	if ok := assert.Nil(t, err, "Random block generator failed to Get current network height"); !ok {
 		t.FailNow()
 	}
 
 	id := rpc.BlockIDLevel(rand.Intn((head.Header.Level - from)) + from)
 	_, block, err := r.Block(&id)
-	if ok := assert.Nil(t, err, "Random block generator failed to get block"); !ok {
+	if ok := assert.Nil(t, err, "Random block generator failed to Get block"); !ok {
 		t.FailNow()
 	}
 

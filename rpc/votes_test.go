@@ -28,7 +28,7 @@ func Test_BallotList(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regBallotList, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get ballot list",
+				"failed to Get ballot list",
 				rpc.BallotList{},
 			},
 		},
@@ -37,7 +37,7 @@ func Test_BallotList(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regBallotList, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get ballot list: failed to parse json",
+				"failed to Get ballot list: failed to parse json",
 				rpc.BallotList{},
 			},
 		},
@@ -86,7 +86,7 @@ func Test_Ballots(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regBallots, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get ballots",
+				"failed to Get ballots",
 				rpc.Ballots{},
 			},
 		},
@@ -95,7 +95,7 @@ func Test_Ballots(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regBallots, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get ballots: failed to parse json",
+				"failed to Get ballots: failed to parse json",
 				rpc.Ballots{},
 			},
 		},
@@ -142,7 +142,7 @@ func Test_CurrentPeriod(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentPeriod, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get current period",
+				"failed to Get current period",
 				rpc.VotingPeriod{},
 			},
 		},
@@ -151,11 +151,11 @@ func Test_CurrentPeriod(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentPeriod, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get current period: failed to parse json",
+				"failed to Get current period: failed to parse json",
 				rpc.VotingPeriod{},
 			},
 		},
-		// TODO: was unable to get real mock data
+		// TODO: was unable to Get real mock data
 		// {
 		// 	"is successful",
 		// 	gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentPeriod, []byte(`"promotion_vote"`)}, blankHandler)),
@@ -199,7 +199,7 @@ func Test_CurrentPeriodKind(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentPeriodKind, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get current period kind",
+				"failed to Get current period kind",
 				"",
 			},
 		},
@@ -208,7 +208,7 @@ func Test_CurrentPeriodKind(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentPeriodKind, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get current period kind: failed to parse json",
+				"failed to Get current period kind: failed to parse json",
 				"",
 			},
 		},
@@ -255,7 +255,7 @@ func Test_CurrentProposal(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentProposal, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get current proposal",
+				"failed to Get current proposal",
 				"",
 			},
 		},
@@ -264,7 +264,7 @@ func Test_CurrentProposal(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentProposal, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get current proposal: failed to parse json",
+				"failed to Get current proposal: failed to parse json",
 				"",
 			},
 		},
@@ -311,7 +311,7 @@ func Test_CurrentQuorum(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentQuorum, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get current quorum",
+				"failed to Get current quorum",
 				0,
 			},
 		},
@@ -320,7 +320,7 @@ func Test_CurrentQuorum(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentQuorum, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get current quorum: failed to parse json",
+				"failed to Get current quorum: failed to parse json",
 				0,
 			},
 		},
@@ -369,7 +369,7 @@ func Test_VoteListings(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regVoteListings, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get listings",
+				"failed to Get listings",
 				rpc.Listings{},
 			},
 		},
@@ -378,7 +378,7 @@ func Test_VoteListings(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regVoteListings, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get listings: failed to parse json",
+				"failed to Get listings: failed to parse json",
 				rpc.Listings{},
 			},
 		},
@@ -427,7 +427,7 @@ func Test_Proposals(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regProposals, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get proposals",
+				"failed to Get proposals",
 				rpc.Proposals{},
 			},
 		},
@@ -436,7 +436,7 @@ func Test_Proposals(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regProposals, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get proposals: failed to parse json",
+				"failed to Get proposals: failed to parse json",
 				rpc.Proposals{},
 			},
 		},
@@ -483,7 +483,7 @@ func Test_SuccessorPeriod(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regSuccessorPeriod, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get successor period",
+				"failed to Get successor period",
 				rpc.VotingPeriod{},
 			},
 		},
@@ -492,11 +492,11 @@ func Test_SuccessorPeriod(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regSuccessorPeriod, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get successor period: failed to parse json",
+				"failed to Get successor period: failed to parse json",
 				rpc.VotingPeriod{},
 			},
 		},
-		// TODO: was unable to get real mock data
+		// TODO: was unable to Get real mock data
 		// {
 		// 	"is successful",
 		// 	gtGoldenHTTPMock(mockHandler(&requestResultPair{regCurrentPeriod, []byte(`"promotion_vote"`)}, blankHandler)),
@@ -540,7 +540,7 @@ func Test_TotalVotingPower(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regTotalVotingPower, readResponse(rpcerrors)}, blankHandler)),
 			want{
 				true,
-				"failed to get total voting power",
+				"failed to Get total voting power",
 				0,
 			},
 		},
@@ -549,7 +549,7 @@ func Test_TotalVotingPower(t *testing.T) {
 			gtGoldenHTTPMock(mockHandler(&requestResultPair{regTotalVotingPower, []byte(`junk`)}, blankHandler)),
 			want{
 				true,
-				"failed to get total voting power: failed to parse json",
+				"failed to Get total voting power: failed to parse json",
 				0,
 			},
 		},
